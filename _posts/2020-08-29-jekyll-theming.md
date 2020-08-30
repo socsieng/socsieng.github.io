@@ -3,6 +3,7 @@ layout: post
 title: Updating the Blog's Theme
 date: 2020-08-29 21:39:00 -0700
 categories: blogging
+tags: blogging
 ---
 
 This is a follow up to my first post on [Blogging for free with

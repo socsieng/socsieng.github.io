@@ -1,8 +1,8 @@
-printWidth: 120
 singleQuote: true
 tabWidth: 2
 overrides:
-  - files: "*.md"
+  - files: '*.md'
     options:
+      printWidth: 120
       parser: markdown
       proseWrap: always

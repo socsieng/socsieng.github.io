@@ -3,6 +3,7 @@ layout: post
 title: Blogging for free with Jekyll
 date: 2020-08-29 16:57:57 -0700
 categories: blogging
+tags: blogging
 ---
 
 I'm starting a blog and I don't want to pay for it. I'm cheap.

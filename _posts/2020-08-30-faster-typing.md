@@ -3,6 +3,7 @@ layout: post
 title: How Breaking My Hand Improved My Typing
 date: 2020-08-30 01:52:00 -0700
 categories: tools
+tags: tools
 ---
 
 Back in February of 2020, I was involved in a bicycle accident and broke my hand 🤕.
