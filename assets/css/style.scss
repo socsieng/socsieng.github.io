@@ -19,6 +19,12 @@ section {
       display: flex;
     }
 
+    h1 {
+      a {
+        color: #fff;
+      }
+    }
+
     h1,
     p {
       text-align: left;
