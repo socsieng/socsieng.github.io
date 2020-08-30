@@ -115,7 +115,7 @@ costs.
 
 There are couple things I'd like to follow up with, including:
 
-- Theming,
+- [Theming]({% post_url 2020-08-29-jekyll-theming %}),
 - Analytics,
 - Custom domain? (...maybe. That's going to cost money)
 
