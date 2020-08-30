@@ -6,8 +6,8 @@ categories: blogging
 ---
 
 This is a follow up to my previous posts [Blogging for free with
-Jekyll]({% post_url 2020-08-29-blogging-for-free-wth-jekyll %}), and [Jekyll
-Theming]({% post_url 2020-08-29-jekyll-theming %}).
+Jekyll]({% post_url 2020-08-29-blogging-for-free-wth-jekyll %}), and [Updating the Blog's
+Theme]({% post_url 2020-08-29-jekyll-theming %}).
 
 In this post, I'll write about the process that I am going through to add
 [Google Analytics](https://analytics.google.com/) to this site.

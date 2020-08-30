@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Jekyll Theming
+title: Updating the Blog's Theme
 date: 2020-08-29 21:39:00 -0700
 categories: blogging
 ---
