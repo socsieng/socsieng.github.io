@@ -13,7 +13,7 @@ myself.
 ## Why Jekyll and GitHub Pages?
 
 I actually started with GitHub Pages because it's been on my list of things to try out. I landed on Jekyll because a
-quick search on Google for term "github blogging" said that I should.
+quick search on Google for the term "github blogging" said that's what I should.
 
 ## Getting started
 
@@ -28,19 +28,19 @@ Starting with the [Jekyll][jekyll] instructions:
 > ```
 
 Browsing the site was about what I expected. Simple and sparse, which is a great start but I'm definitely going to be
-looking for a new theme (I'll cover that in another post).
+looking for a new theme (I'll cover that in [another post]({% post_url 2020-08-29-jekyll-theming %})).
 
 ![Jekyll screenshot](/assets/img/jekyll-screenshot.png) _Jekyll screenshot._
 
 ## Under the hood
 
 I was actually more interested in understanding how the site is structured, so I fired up Visual Studio Code to have a
-look inside. I was happy with what I saw initially which was very little.
+look inside. I was happy with what I saw initially which nice and relatively empty project.
 
 ### Tweaking
 
 There were a couple of things that I did straight away because I have a particular preference for how my code should
-look. So I immediately started making the following changes:
+look. I started with the following changes:
 
 1. Initialize a git repository. I'm planning on publishing to GitHub anyway and I want to do this as early as possible
    in case I break something, I'll have a restore point.
@@ -92,7 +92,7 @@ I followed the [GitHub guide][github-jekyll] to complete this section but have s
    end
    ```
 
-3. Push your changes up to your repository:
+3. Push changes up to your repository:
 
    ```sh
    git remote add origin git@github.com:socsieng/socsieng.github.io.git
