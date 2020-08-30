@@ -1,4 +1,7 @@
-@import 'midnight/jekyll-theme-midnight.scss';
+---
+---
+
+@import '{{ site.theme }}';
 
 .wrapper {
   max-width: 800px;

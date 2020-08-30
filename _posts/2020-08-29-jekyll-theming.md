@@ -61,12 +61,13 @@ The result...?
 
 ![Jekyll screenshot 2](/assets/img/jekyll-theming-2.png) _...better, but lots of space._
 
-Step 3: Override the styles with `_sass/jekyll-theme-midnight.scss`.
-
-Copy the files from `vendor/bundle/ruby/2.6.0/gems/jekyll-theme-midnight-0.1.1/_sass/` to `_sass/midnight`.
+Step 3: Override the styles with `assets/css/style.scss`.
 
 ```scss
-@import 'midnight/jekyll-theme-midnight.scss';
+---
+---
+
+@import {% raw %}'{{ site.theme }}'{% endraw %};
 
 section {
   margin-top: 0px;
