@@ -14,7 +14,7 @@ myself.
 ## Why Jekyll and GitHub Pages?
 
 I actually started with GitHub Pages because it's been on my list of things to try out. I landed on Jekyll because a
-quick search on Google for the term "github blogging" said that's what I should.
+quick search on Google for the term "github blogging" said that's what I should use.
 
 ## Getting started
 
