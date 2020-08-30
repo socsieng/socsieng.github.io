@@ -4,6 +4,8 @@ title: Updating the Blog's Theme
 date: 2020-08-29 21:39:00 -0700
 categories: blogging
 tags: blogging
+excerpt: |
+  <p>First order of business, update the site's theme.</p>
 ---
 
 This is a follow up to my first post on [Blogging for free with

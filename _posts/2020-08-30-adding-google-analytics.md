@@ -4,6 +4,8 @@ title: Adding Google Analytics
 date: 2020-08-30 01:01:00 -0700
 categories: blogging
 tags: blogging
+excerpt: |
+  <p>Next up, adding Google Analytics to the site.</p>
 ---
 
 This is a follow up to my previous posts [Blogging for free with

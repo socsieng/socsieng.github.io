@@ -27,6 +27,7 @@ twitter_username: aussoc
 github_username: socsieng
 
 google_analytics: UA-176795949-1
+show_excerpts: true
 
 # Build settings
 theme: jekyll-theme-midnight

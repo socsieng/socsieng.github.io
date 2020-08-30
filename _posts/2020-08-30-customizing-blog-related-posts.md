@@ -4,6 +4,8 @@ title: Customizing The Blog With Related Posts
 date: 2020-08-30 10:44:00 -0700
 categories: blogging
 tags: blogging
+excerpt: |
+  <p>Adding related posts at the end of all my blog posts.</p>
 ---
 
 I've been using Jekyll and GitHub as a blogging platform for about a day now and have been very happy with the
