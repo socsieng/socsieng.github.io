@@ -63,6 +63,11 @@ code {
   padding: 3px 4px;
 }
 
-pre code {
-  background-color: transparent;
+pre {
+  box-shadow: none;
+  border-radius: 4px;
+
+  code {
+    background-color: transparent;
+  }
 }
