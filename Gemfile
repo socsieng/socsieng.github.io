@@ -28,3 +28,7 @@ end
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 
+group :development do
+  gem "image_optim", require: false
+  gem "image_optim_pack", require: false
+end
