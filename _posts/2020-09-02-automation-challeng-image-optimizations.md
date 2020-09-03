@@ -141,10 +141,22 @@ Once installed, any images that have not already been optimized every time I cal
 
 ## Sparking joy
 
-With very little effort, I've been able to automate an otherwise mindless activity. I challenge you to find
-something/anything to automate. I want to hear about it: [@aussoc](https://twitter.com/aussoc).
+With very little effort, I've been able to automate an otherwise mindless activity.
+
+And here are the results:
+
+| Image                   | Size before | Size after | Improvement |
+| :---------------------- | ----------: | ---------: | ----------: |
+| github-pages-config.png |        102K |        51K |   51K (50%) |
+| google-pay-vue.gif      |        2.9M |       2.4M |  0.5M (17%) |
+| jekyll-screenshot.png   |        520K |       272K |  248K (48%) |
+| jekyll-theming-1.png    |        570K |       307K |  263K (46%) |
+| jekyll-theming-2.png    |        536K |       285K |  251K (47%) |
+| jekyll-theming-3.png    |        569K |       311K |  258K (45%) |
 
 ![Discard everything that does not spark joy - Marie Kondo](/assets/img/marie-kondo.png) _I'm sure Marie Kondo would
 approve._
+
+I challenge you to find something/anything to automate. I want to hear about it: [@aussoc](https://twitter.com/aussoc).
 
 [image_optim]: https://github.com/toy/image_optim
