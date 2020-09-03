@@ -80,3 +80,15 @@ pre {
     background-color: transparent;
   }
 }
+
+.post-list {
+  h3 {
+    margin-bottom: 0px;
+  }
+
+  .post-meta {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: #c0b7a5;
+  }
+}
