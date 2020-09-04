@@ -3,7 +3,9 @@ layout: post
 title: 'Scripting a New Blog Post'
 date: 2020-09-04 13:02:27 -0700
 categories: tools
-tags: tools
+tags: [tools, blogging]
+excerpt: |
+  <p>I've created a script to help me create new Jekyll blog posts. Before this was copy/pasting an existing post... no more...</p>
 ---
 
 I'm tired of manually creating a new Jekyll blog post which for me included copying an existing post, renaming the file
