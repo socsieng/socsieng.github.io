@@ -26,13 +26,14 @@
           <div>
             <p>{{ site.description | default: site.github.project_tagline }}</p>
             {%- include social.html -%}
-            </div>
+          </div>
         </div>
         <hr>
 
         {{ content }}
-
       </section>
+
+      {%- include footer.html -%}
 
     </div>
 
