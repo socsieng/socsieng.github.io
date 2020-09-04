@@ -13,8 +13,9 @@ optimizing images for this blog.
 
 ## Optimizing images
 
-I'm going to use a library called [`image_optim`][image_optim] to apply the optimizations. I do this by adding the
-dependency to my `Gemfile`:
+This blog is built with Jekyll and is running on GitHub pages. Jekyll is built with Ruby (a new language to me), so I'll
+be using a Ruby gem called [`image_optim`][image_optim] to apply the optimizations. I do this by adding the dependency
+to my `Gemfile`:
 
 ```ruby
 group :development do
@@ -30,7 +31,7 @@ bundle install
 ```
 
 I'm going to organize scripts in the aptly named `scripts` folder, and the Ruby script to optimize images will be named
-`scripts/optimize-images.rb` (🤯):
+`scripts/optimize-images.rb` 🤯:
 
 ```ruby
 #!/usr/bin/env ruby
