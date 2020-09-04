@@ -18,7 +18,6 @@ I've created a script (`scripts/new-post.sh`):
 #!/usr/bin/env bash
 set -e
 
-script_folder=`cd $(dirname $0) && pwd`
 repo_folder=`git rev-parse --show-toplevel`
 
 category=$1
