@@ -1,1 +1,5 @@
 *.html
+
+_sites/
+.bundle/
+vendor/
