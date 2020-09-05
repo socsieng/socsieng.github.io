@@ -1,6 +1,11 @@
-# Jekyll on GitHub Pages
+---
+layout: page
+title: Jekyll on GitHub Pages
+permalink: /readme
+---
 
-This repository is the [socsieng.github.io](https://socsieng.github.io/) blog.
+This [repository](https://github.com/socsieng/socsieng.github.io) is for the
+[socsieng.github.io](https://socsieng.github.io/) blog.
 
 While the content and the words are mine, any code, scripts, templates, etc. are available for all to use.
 
