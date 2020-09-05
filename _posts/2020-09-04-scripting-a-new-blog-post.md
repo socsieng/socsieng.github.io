@@ -2,7 +2,7 @@
 layout: post
 title: 'Scripting a New Blog Post'
 date: 2020-09-04 13:02:27 -0700
-modified_date: 2020-09-04 14:49:45 -0700
+modified_date: 2020-09-05 20:02:49 +0000
 categories: tools
 tags: [tools, blogging]
 excerpt: |
@@ -63,3 +63,9 @@ editing in Visual Studio Code.
 Demo:
 
 ![New post script in action](/assets/img/new-post.gif)
+
+Edit:
+
+Since writing this post, I found out that there is a plugin [`jekyll-compose`](https://github.com/jekyll/jekyll-compose)
+which provides this functionality as well as more. I plan to stick with this script though. Its one less dependency, and
+does everything I need.
