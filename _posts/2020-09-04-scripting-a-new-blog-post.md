@@ -2,7 +2,7 @@
 layout: post
 title: 'Scripting a New Blog Post'
 date: 2020-09-04 13:02:27 -0700
-modified_date: 2020-09-05 20:02:49 +0000
+modified_date: 2020-09-05 16:03:04 -0700
 categories: tools
 tags: [tools, blogging]
 excerpt: |
@@ -37,7 +37,7 @@ date: $timestamp
 categories: $category
 tags: $category
 ---
-" >> $file_path
+" > $file_path
 
 echo $file_path
 ```

@@ -17,6 +17,6 @@ date: $timestamp
 categories: $category
 tags: $category
 ---
-" >> $file_path
+" > $file_path
 
 echo $file_path
