@@ -25,7 +25,6 @@ Almost everything that I've tried so far has worked (note that I'm not trying to
 - [x] Previewing the site on Gitpod,
 - [x] Creating a new post with a custom script (`scripts/new-post.sh tools "Maintaining a Jekyll Blog with Gitpod"`),
 - [x] Syntax highlighting,
-- [ ] Upload an image (e.g. screenshot) via Gitpod (haven't figured out how to do this yet),
 - [x] Commit files locally, and
 - [x] Push files to GitHub.
 
