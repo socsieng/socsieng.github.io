@@ -8,8 +8,10 @@ modified_match=`cat $file_path | grep -E "^modified_date: *$date_exp"`
 
 if [ -n "$modified_match" ]
 then
-  sed -i -E -e "s/^modified_date: *$date_exp/modified_date: $timestamp/" $file_path
+  sed -i .temp -E -e "s/^modified_date: *$date_exp/modified_date: $timestamp/" $file_path
 else
-  sed -i -E -e "s/^(date: *$date_exp)/\\1\\
+  sed -i .temp -E -e "s/^(date: *$date_exp)/\\1\\
 modified_date: $timestamp/" $file_path
 fi
+
+rm $file_path.temp
