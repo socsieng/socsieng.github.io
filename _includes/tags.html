@@ -1,0 +1,6 @@
+{%- if page.tags.size > 0 -%}
+  <div class="tags">
+    {%- assign tags = page.tags | join: ", " -%}
+    Tags: {{ tags }}
+  </div>
+{%- endif -%}
