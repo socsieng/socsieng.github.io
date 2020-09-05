@@ -2,6 +2,7 @@
 layout: post
 title: 'Scripting a New Blog Post'
 date: 2020-09-04 13:02:27 -0700
+modified_date: 2020-09-04 14:49:45 -0700
 categories: tools
 tags: [tools, blogging]
 excerpt: |
