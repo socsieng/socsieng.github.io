@@ -31,7 +31,6 @@ google_analytics: UA-176795949-1
 show_excerpts: true
 
 # Build settings
-theme: jekyll-theme-midnight
 plugins:
   - jekyll-feed
 

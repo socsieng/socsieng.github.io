@@ -2,6 +2,7 @@
 layout: post
 title: Customizing The Blog With Related Posts
 date: 2020-08-30 10:44:00 -0700
+modified_date: 2020-09-07 18:20:23 -0700
 categories: blogging
 tags: blogging
 excerpt: |
@@ -82,3 +83,6 @@ I'm not completely satisfied with the implementation as according to the
 
 Because I'm hosting on GitHub Pages, related posts will just return the 10 most recent posts. Which isn't an issue for
 me at the moment, because this is currently my 5th blog post. But this is something that I'd like to revisit later on.
+
+EDIT: I've since switched over to [GitHub Actions]({% post_url 2020-09-07-using-github-actions-over-github-pages %}) for
+`lsi` support.
