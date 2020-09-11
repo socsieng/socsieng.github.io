@@ -11,3 +11,5 @@ assets/css/ie.scss
 _sites/
 .bundle/
 vendor/
+
+misc/prettier-before.js
