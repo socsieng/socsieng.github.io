@@ -3,6 +3,7 @@ layout: post
 title: 'Eleventy as a JavaScript Blogging Platform'
 date: 2020-09-13 19:41:46 -0700
 categories: blogging
+image: /assets/img/distracted-eleventy.jpg
 tags: [blogging, jekyll, eleventy]
 ---
 
