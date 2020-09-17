@@ -7,7 +7,7 @@ image: /assets/img/google-pay-size.gif
 tags: [tools, sendkeys-macos, npm]
 ---
 
-I've just released stable version of [`sendkeys-macos`](https://www.npmjs.com/package/sendkeys-macos) as v1.0.1.
+I've just released stable a version of [`sendkeys-macos`](https://www.npmjs.com/package/sendkeys-macos) as v1.0.1.
 
 I've been wanting to do this for a while now, but the main thing stopping was the absence of unit tests and some
 additional project hygiene.
