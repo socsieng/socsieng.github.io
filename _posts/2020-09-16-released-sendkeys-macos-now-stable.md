@@ -18,7 +18,7 @@ Hygiene related activities include:
 - Automation
   - Add [Prettier for consistent automatic code
     formatting]({% post_url 2020-09-10-automated-code-formatting-with-prettier %})
-  - Add [Husky] git hooks
+  - Add [Husky](https://github.com/typicode/husky) git hooks
   - Auto-generating change logs with [`release-please`](https://github.com/GoogleCloudPlatform/release-please-action)
   - Automated publish to npm
 
