@@ -1,7 +1,7 @@
 *.html
 
 _sass/fonts.scss
-_sass/jekyll-theme-midnight.scss
+# _sass/jekyll-theme-midnight.scss
 _sass/normalize.scss
 _sass/rouge-base16-dark.scss
 _site/assets/css/ie.scss
