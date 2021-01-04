@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Using GitHub Actions Over GitHub Pages | Soc’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Using GitHub Actions Over GitHub Pages" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’m making the move from GitHub’s built-in Jekyll integration to GitHub Actions." />
+<meta property="og:description" content="I’m making the move from GitHub’s built-in Jekyll integration to GitHub Actions." />
+<link rel="canonical" href="https://socsieng.github.io/blogging/2020/09/07/using-github-actions-over-github-pages.html" />
+<meta property="og:url" content="https://socsieng.github.io/blogging/2020/09/07/using-github-actions-over-github-pages.html" />
+<meta property="og:site_name" content="Soc’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-07T20:30:19+00:00" />
+<script type="application/ld+json">
+{"description":"I’m making the move from GitHub’s built-in Jekyll integration to GitHub Actions.","url":"https://socsieng.github.io/blogging/2020/09/07/using-github-actions-over-github-pages.html","@type":"BlogPosting","headline":"Using GitHub Actions Over GitHub Pages","dateModified":"2020-09-07T20:30:19+00:00","datePublished":"2020-09-07T20:30:19+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://socsieng.github.io/blogging/2020/09/07/using-github-actions-over-github-pages.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=" />
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css" />
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1><a href="/">Soc's Blog</a></h1>
+          <div>
+            <p>Musings of an old Software Engineer.</p><ul class="social-media-list"><li>
+    <a href="https://github.com/socsieng"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#github"></use></svg>
+      <span class="username">socsieng</span></a
+    >
+  </li><li>
+    <a href="https://www.twitter.com/aussoc"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#twitter"></use></svg>
+      <span class="username">aussoc</span></a
+    >
+  </li></ul>
+</div>
+        </div>
+        <hr>
+
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Using GitHub Actions Over GitHub Pages</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-09-07T20:30:19+00:00" itemprop="datePublished">
+        Sep 7, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I’m making the move from GitHub’s built-in Jekyll integration to GitHub Actions.</p>
+
+<p>Jekyll lists a number of
+<a href="https://jekyllrb.com/docs/continuous-integration/github-actions/#advantages-of-using-actions">advantages of using GitHub Actions</a>,
+however, I’m primarily interested in:</p>
+
+<ul>
+  <li>Improved indexing for <code class="language-plaintext highlighter-rouge">related_posts</code> with <code class="language-plaintext highlighter-rouge">--lsi</code>
+(<a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing">latent semantic indexing</a>) which is
+not available with GitHub pages,</li>
+  <li>Access to more plugins (not just those permitted by GitHub pages),</li>
+  <li>More fine-grained control over how the site is generated - the current GitHub pages set up is a bit too magic-y and I
+don’t have visibility of what is actually happening when I commit changes, and</li>
+  <li>Using the latest version of Jekyll</li>
+</ul>
+
+<h2 id="reverting-to-the-latest-version-of-jekyll">Reverting to the latest version of Jekyll</h2>
+
+<p>Step 1: Remove <code class="language-plaintext highlighter-rouge">github-pages</code> from <code class="language-plaintext highlighter-rouge">Gemfile</code>, and add <code class="language-plaintext highlighter-rouge">jekyll</code></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># gem "github-pages", group: :jekyll_plugins</span>
+<span class="n">gem</span> <span class="s2">"jekyll"</span><span class="p">,</span> <span class="s2">"~&gt; 4.1.1"</span>
+</code></pre></div></div>
+
+<p>One of the things that broke for me was that the theme I was using didn’t work with the latest version of <code class="language-plaintext highlighter-rouge">jekyll</code>. So I
+carefully copied the files from <code class="language-plaintext highlighter-rouge">gems/jekyll-theme-midnight-0.1.1</code> into the root of my repository, and added the plugins
+that the theme referenced into my <code class="language-plaintext highlighter-rouge">Gemfile</code>:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span> <span class="ss">:jekyll_plugins</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+  <span class="n">gem</span> <span class="s2">"jekyll-seo-tag"</span><span class="p">,</span> <span class="s2">"~&gt; 2.0"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Verify that the site continues to work as expected.</p>
+
+<h2 id="adding-latent-semantic-indexing-locally">Adding latent semantic indexing (locally)</h2>
+
+<p>Latent semantic indexing support requires the <code class="language-plaintext highlighter-rouge">classifier-reborn</code> plugin. This is added by updating the <code class="language-plaintext highlighter-rouge">Gemfile</code>:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span> <span class="ss">:jekyll_plugins</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+  <span class="n">gem</span> <span class="s2">"classifier-reborn"</span><span class="p">,</span> <span class="s2">"~&gt; 2.2.0"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>And then enabling it with the <code class="language-plaintext highlighter-rouge">--lsi</code> option:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># install plugin</span>
+bundle <span class="nb">install</span>
+
+<span class="c"># start server locally</span>
+bundle <span class="nb">exec </span>jekyll serve <span class="nt">--lsi</span>
+</code></pre></div></div>
+
+<p>This is the list of related posts before:</p>
+
+<blockquote>
+  <h3 id="related-posts">Related posts</h3>
+
+  <ul>
+    <li>Maintaining a Jekyll Blog with Gitpod</li>
+    <li>Scripting a New Blog Post</li>
+    <li>We Don’t Look Alike</li>
+    <li>Automation Challenge: Image Optimization</li>
+    <li>Customizing The Blog With Related Posts</li>
+    <li>How Breaking My Hand Improved My Typing</li>
+    <li>Adding Google Analytics</li>
+    <li>Updating the Blog’s Theme</li>
+    <li>Blogging for free with Jekyll</li>
+  </ul>
+</blockquote>
+
+<p>And after:</p>
+
+<blockquote>
+  <h3 id="related-posts-1">Related posts</h3>
+
+  <ul>
+    <li>Blogging for free with Jekyll</li>
+    <li>Using GitHub Actions Over GitHub Pages</li>
+    <li>Updating the Blog’s Theme</li>
+    <li>Customizing The Blog With Related Posts</li>
+    <li>Automation Challenge: Image Optimization</li>
+    <li>How Breaking My Hand Improved My Typing</li>
+    <li>Adding Google Analytics</li>
+    <li>Maintaining a Jekyll Blog with Gitpod</li>
+    <li>Scripting a New Blog Post</li>
+    <li>We Don’t Look Alike</li>
+  </ul>
+</blockquote>
+
+<p>Trust me, the updated list is much more relevant than a <em>recent posts</em> list</p>
+
+<h2 id="adding-the-github-action-workflow">Adding the GitHub Action workflow</h2>
+
+<p>Previously, <a href="https://socsieng.github.io/">socsieng.github.io</a> was automatically setup to build a static Jekyll site and
+publish to GitHub Pages. Without this automatic process, I now need publish my static site to a GitHub Pages branch
+(<code class="language-plaintext highlighter-rouge">gh-pages</code> by convention).</p>
+
+<p>Jekyll provides a
+<a href="https://jekyllrb.com/docs/continuous-integration/github-actions/#setting-up-the-action">sample workflow file</a>, which I
+use as a starting point for <code class="language-plaintext highlighter-rouge">.github/workflows/jekyll.yml</code>:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">jekyll build</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">main</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+
+      <span class="c1"># Use GitHub Actions' cache to shorten build times and decrease load on servers</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/cache@v1</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">path</span><span class="pi">:</span> <span class="s">vendor/bundle</span>
+          <span class="na">key</span><span class="pi">:</span> <span class="s">${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}</span>
+          <span class="na">restore-keys</span><span class="pi">:</span> <span class="pi">|</span>
+            <span class="s">${{ runner.os }}-gems-</span>
+
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">socsieng/jekyll-action@master</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">target_branch</span><span class="pi">:</span> <span class="s">gh-pages</span>
+        <span class="na">env</span><span class="pi">:</span>
+          <span class="na">JEKYLL_PAT</span><span class="pi">:</span> <span class="s">${{ secrets.JEKYLL_PAT }}</span>
+          <span class="na">JEKYLL_ARGS</span><span class="pi">:</span> <span class="s">--lsi</span>
+</code></pre></div></div>
+
+<p>I’ve had a look at the <a href="https://github.com/helaili/jekyll-action/"><code class="language-plaintext highlighter-rouge">helaili/jekyll-action</code></a> repository that the Jekyll
+documentation referenced and used some of the sample configuration there as well.</p>
+
+<p>Note that I’ve forked <a href="https://github.com/helaili/jekyll-action/"><code class="language-plaintext highlighter-rouge">helaili/jekyll-action</code></a> to add support for additional
+<code class="language-plaintext highlighter-rouge">JEKYLL_ARGS</code> parameters so that I can pass in the <code class="language-plaintext highlighter-rouge">--lsi</code>. I’ve also raised a
+<a href="https://github.com/helaili/jekyll-action/pull/56">pull request</a> back to the original repository.</p>
+
+<p>A prerequisite to enabling this workflow is that you need to provide and configure a
+<a href="https://github.com/settings/tokens">GitHub Personal Access Token</a> with the <code class="language-plaintext highlighter-rouge">public_repo</code> scope for the workflow to use
+to publish site changes. I <strong>strongly</strong> recommend creating a new token instead of reusing an existing one.</p>
+
+<h2 id="configuring-github-pages">Configuring GitHub pages</h2>
+
+<p>Once the workflow executes, a new branch is created <code class="language-plaintext highlighter-rouge">gh-pages</code> (updated if you already had this branch).</p>
+
+<p>The final step is to configure GitHub Pages to use this new branch:</p>
+
+<p><img src="/assets/img/github-pages-config2.png" alt="GitHub pages configuration" /> <em>Configure GitHub Pages.</em></p>
+
+<h2 id="summing-up">Summing up</h2>
+
+<p>I switched over to GitHub Actions so that I could have more control over how my Jekyll site is generated. It is more
+involved than simply using the default GitHub/Jekyll integration, but I think it will pay off in the long run with more
+control and flexibility at my finger tips.</p>
+
+<p>I hope this helps anybody else thinking about making the switch.</p>
+
+  </div><div class="tags">Tags: blogging
+  </div><hr></hr>
+  <h2 class="post-list-heading related-posts">Related posts</h2>
+  <ul class="post-list related-posts"><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/03/automation-challeng-image-optimizations.html">
+          Automation Challenge: Image Optimization
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/customizing-blog-related-posts.html">
+          Customizing The Blog With Related Posts
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/11/automated-code-formatting-with-prettier.html">
+          Automated Code Formatting With Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/29/blogging-for-free-wth-jekyll.html">
+          Blogging for free with Jekyll
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/jekyll-theming.html">
+          Updating the Blog&#39;s Theme
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html">
+          Maintaining a Jekyll Blog with Gitpod
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/08/30/faster-typing.html">
+          How Breaking My Hand Improved My Typing
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/adding-google-analytics.html">
+          Adding Google Analytics
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/10/making-prettier-prettier.html">
+          Making Prettier Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/04/scripting-a-new-blog-post.html">
+          Scripting a New Blog Post
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/09/14/eleventy-as-a-javascript-blogging-platform.html">
+          Eleventy as a JavaScript Blogging Platform
+        </a>
+      </h3>
+    </li></ul><a class="u-url" href="/blogging/2020/09/07/using-github-actions-over-github-pages.html" hidden></a>
+</article>
+
+      </section><hr />
+<div class="footer">
+	<p>&copy; socsieng 2021 | All Rights Reserved. </p>
+	<ul class="page-links">
+		<li><a href="/readme">Readme</a></li>
+		<li><a href="/about">About Me</a></li>
+	</ul>
+</div></div>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-176795949-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>

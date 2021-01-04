@@ -1,0 +1,5 @@
+function calculateTotal() {
+return accounts.map(account => Number(account.balance)).reduce((total, balance) => total + balance, 0)<c:down:command>
+
+const total = calculateTotal()
+console.log("Total balance " + total.toFixed(2))<p:1><c:s:command><\>

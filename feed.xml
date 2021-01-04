@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://socsieng.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://socsieng.github.io/" rel="alternate" type="text/html" /><updated>2021-01-04T22:28:51+00:00</updated><id>https://socsieng.github.io/feed.xml</id><title type="html">Soc’s Blog</title><subtitle>Musings of an old Software Engineer.</subtitle><entry><title type="html">Released: sendkeys 2.0</title><link href="https://socsieng.github.io/tools/2021/01/04/released-sendkeys-2-0.html" rel="alternate" type="text/html" title="Released: sendkeys 2.0" /><published>2021-01-04T21:47:58+00:00</published><updated>2021-01-04T21:47:58+00:00</updated><id>https://socsieng.github.io/tools/2021/01/04/released-sendkeys-2-0</id><content type="html" xml:base="https://socsieng.github.io/tools/2021/01/04/released-sendkeys-2-0.html">&lt;p&gt;I’m happy to announce the release of &lt;a href=&quot;https://github.com/socsieng/sendkeys&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendkeys 2.0&lt;/code&gt;&lt;/a&gt;. 🚀🎉!&lt;/p&gt;
+
+&lt;p&gt;This is a major release and includes the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Rewrite from JavaScript to Swift.&lt;/li&gt;
+  &lt;li&gt;Installable via &lt;a href=&quot;https://brew.sh/&quot;&gt;homebrew&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Support for automating mouse events!!!&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;socsieng/tap/sendkeys
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;example-usage&quot;&gt;Example usage&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sendkeys &lt;span class=&quot;nt&quot;&gt;--application-name&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Notes&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--characters&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello&amp;lt;p:1&amp;gt; world&amp;lt;c:left:option,shift&amp;gt;&amp;lt;c:i:command&amp;gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/socsieng/sendkeys/raw/main/docs/images/example1.gif&quot; alt=&quot;hello world example&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Activates the Notes application and types &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Hello&lt;/code&gt; (followed by a 1 second pause) and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;world&lt;/code&gt;, and then selects the word
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;world&lt;/code&gt; and changes the font to italics with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;command&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sendkeys &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;m:100,300,300,300:0.5&amp;gt;&amp;lt;p:0.5&amp;gt;&amp;lt;m:100,300:0.5&amp;gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/socsieng/sendkeys/raw/main/docs/images/mouse.gif&quot; alt=&quot;mouse move example&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Moves the mouse cursor from (100, 300) to (300, 300), pausing for 0.5 seconds and moving back to (100, 300).&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;why-rewrite&quot;&gt;Why rewrite?&lt;/h2&gt;
+
+&lt;p&gt;You might be wondering about why anyone would bother rewriting anything from JavaScript to Swift. In my case, it was to
+provide mouse automation capabilties and overall simplification. With the rewrite, I was able to unify how keyboard and
+mouse events are dispatched to macOS using Quartz instead of AppleScript (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;osascript&lt;/code&gt; for keyboard) and Quartz for
+mouse.&lt;/p&gt;
+
+&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendkeys&lt;/code&gt; requires macOS 10.11 or later.&lt;/p&gt;
+
+&lt;p&gt;When running from the terminal, ensure that the terminal has permission to use accessibility features. This can be done
+by navigating to System Preferences &amp;gt; Security &amp;amp; Privacy &amp;gt; Privacy &amp;gt; Accessibility and adding your terminal application
+there.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/socsieng/sendkeys/raw/main/docs/images/accessibility.gif&quot; alt=&quot;accessibility settings&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;whats-next&quot;&gt;What’s next?&lt;/h2&gt;
+
+&lt;p&gt;There are some additional features and learnings that I got out of this release that I plan to cover in subsequent
+posts. Keep an eye out for:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Recording and replaying mouse events, and&lt;/li&gt;
+  &lt;li&gt;Automating releases with GitHub Actions and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;brew&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="tools" /><category term="tools" /><category term="sendkeys" /><category term="brew" /><category term="mouse" /><summary type="html">I’m happy to announce the release of sendkeys 2.0. 🚀🎉!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://github.com/socsieng/sendkeys/raw/main/docs/images/accessibility.gif" /><media:content medium="image" url="https://github.com/socsieng/sendkeys/raw/main/docs/images/accessibility.gif" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Released: sendkeys-macos Now Stable 🎉</title><link href="https://socsieng.github.io/tools/2020/09/17/released-sendkeys-macos-now-stable.html" rel="alternate" type="text/html" title="Released: sendkeys-macos Now Stable 🎉" /><published>2020-09-17T03:57:49+00:00</published><updated>2020-09-17T03:57:49+00:00</updated><id>https://socsieng.github.io/tools/2020/09/17/released-sendkeys-macos-now-stable</id><content type="html" xml:base="https://socsieng.github.io/tools/2020/09/17/released-sendkeys-macos-now-stable.html">&lt;p&gt;I’ve just released a stable version of &lt;a href=&quot;https://www.npmjs.com/package/sendkeys-macos&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendkeys-macos&lt;/code&gt;&lt;/a&gt; as v1.0.1.&lt;/p&gt;
+
+&lt;p&gt;I’ve been wanting to do this for a while now, but the main thing stopping was the absence of unit tests and some
+additional project hygiene.&lt;/p&gt;
+
+&lt;p&gt;Hygiene related activities include:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Unit tests&lt;/li&gt;
+  &lt;li&gt;Automation
+    &lt;ul&gt;
+      &lt;li&gt;Add &lt;a href=&quot;/tools/2020/09/11/automated-code-formatting-with-prettier.html&quot;&gt;Prettier for consistent automatic code
+formatting&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Add &lt;a href=&quot;https://github.com/typicode/husky&quot;&gt;Husky&lt;/a&gt; git hooks&lt;/li&gt;
+      &lt;li&gt;Auto-generating change logs with &lt;a href=&quot;https://github.com/GoogleCloudPlatform/release-please-action&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release-please&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Automated publish to npm&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Checkout the project on &lt;a href=&quot;https://github.com/socsieng/sendkeys-macos&quot;&gt;github&lt;/a&gt;. Let me know if you have any issues. Pull
+requests welcome.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/google-pay-size.gif&quot; alt=&quot;Google Pay button size example&quot; /&gt; &lt;em&gt;The latest example of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendkeys-macos&lt;/code&gt; in action
+(and gratuitous animation).&lt;/em&gt;&lt;/p&gt;</content><author><name></name></author><category term="tools" /><category term="tools" /><category term="sendkeys-macos" /><category term="npm" /><summary type="html">I’ve just released a stable version of sendkeys-macos as v1.0.1.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://socsieng.github.io/assets/img/google-pay-size.gif" /><media:content medium="image" url="https://socsieng.github.io/assets/img/google-pay-size.gif" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Eleventy as a JavaScript Blogging Platform</title><link href="https://socsieng.github.io/blogging/2020/09/14/eleventy-as-a-javascript-blogging-platform.html" rel="alternate" type="text/html" title="Eleventy as a JavaScript Blogging Platform" /><published>2020-09-14T02:41:46+00:00</published><updated>2020-09-14T02:41:46+00:00</updated><id>https://socsieng.github.io/blogging/2020/09/14/eleventy-as-a-javascript-blogging-platform</id><content type="html" xml:base="https://socsieng.github.io/blogging/2020/09/14/eleventy-as-a-javascript-blogging-platform.html">&lt;p&gt;&lt;a href=&quot;https://github.com/google/eleventy-high-performance-blog&quot;&gt;Eleventy High Performance Blog&lt;/a&gt; made it into my feed today. I
+hadn’t even heard of &lt;a href=&quot;https://github.com/11ty/eleventy&quot;&gt;Eleventy (11ty)&lt;/a&gt; before today so I thought I’d check it out.&lt;/p&gt;
+
+&lt;p&gt;What piqued my interest about &lt;a href=&quot;https://github.com/11ty/eleventy&quot;&gt;Eleventy&lt;/a&gt; was this:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A simpler static site generator. An alternative to Jekyll. Written in &lt;strong&gt;JavaScript&lt;/strong&gt;. Transforms a directory of
+templates (of varying types) into HTML.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Emphasis&lt;/strong&gt; mine.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://imgflip.com/i/4evbw0&quot;&gt;&lt;img src=&quot;/assets/img/distracted-eleventy.jpg&quot; alt=&quot;Distracted boyfriend meme - Eleventy, Me, and Jekyll&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s actually more like:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://imgflip.com/i/4evcet&quot;&gt;&lt;img src=&quot;/assets/img/distracted-javascript.jpg&quot; alt=&quot;Distracted boyfriend meme - JavaScript, Me, and Ruby&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I’m much more familiar with JavaScript than I am with Ruby (Jekyll is built with Ruby). While the idea of being able
+easily make changes to the static site generator sounds compelling, the truth is that I just don’t have the time. Had I
+known about Eleventy when I started blogging (or done some more up front analysis), I may have chosen it as my blogging
+platform.&lt;/p&gt;
+
+&lt;p&gt;As a software engineer, I feel like I am constantly being tempted by the next new thing whether it’s a new platform,
+language, or framework. I think it’s important to be aware of what is happening around you, but to also think
+objectively about the benefits. In this case, it would be a new capability that I have no plans to use. As such, I’ve
+got no plans to switch.&lt;/p&gt;</content><author><name></name></author><category term="blogging" /><category term="blogging" /><category term="jekyll" /><category term="eleventy" /><summary type="html">Eleventy High Performance Blog made it into my feed today. I hadn’t even heard of Eleventy (11ty) before today so I thought I’d check it out.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://socsieng.github.io/assets/img/distracted-eleventy.jpg" /><media:content medium="image" url="https://socsieng.github.io/assets/img/distracted-eleventy.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Automated Code Formatting With Prettier</title><link href="https://socsieng.github.io/tools/2020/09/11/automated-code-formatting-with-prettier.html" rel="alternate" type="text/html" title="Automated Code Formatting With Prettier" /><published>2020-09-11T02:46:00+00:00</published><updated>2020-09-11T02:46:00+00:00</updated><id>https://socsieng.github.io/tools/2020/09/11/automated-code-formatting-with-prettier</id><content type="html" xml:base="https://socsieng.github.io/tools/2020/09/11/automated-code-formatting-with-prettier.html">&lt;p&gt;If you’re not using an automatic code formatter, you’re wasting time (and money). Boost your team’s productivity by
+integrating one into your workflow today.&lt;/p&gt;
+
+&lt;p&gt;Consistency is important when maintaining large code bases, across multiple contributors (especially for open source
+projects). If consistency is important to you, then there are a few ways to maintain consistency in your code base:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Code review&lt;/li&gt;
+  &lt;li&gt;Linting&lt;/li&gt;
+  &lt;li&gt;Automatic formatting&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Each option is built on top of the options before them.&lt;/p&gt;
+
+&lt;h2 id=&quot;during-code-review&quot;&gt;During code review&lt;/h2&gt;
+
+&lt;p&gt;I order to maintain consistency during code reviews, you need to start with a coding standards/guidelines.&lt;/p&gt;
+
+&lt;p&gt;It &lt;del&gt;could&lt;/del&gt; should be as simple as:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;We use the &lt;a href=&quot;https://github.com/airbnb/javascript&quot;&gt;Airbnb JavaScript Style Guide&lt;/a&gt; here.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Stick to a well known style guide unless you have a good reason not to… and don’t forget to actually do the code
+review.&lt;/p&gt;
+
+&lt;h2 id=&quot;linting&quot;&gt;Linting&lt;/h2&gt;
+
+&lt;p&gt;Linting builds on top of guidelines. It takes these guidelines and &lt;em&gt;codifies&lt;/em&gt; them, identifying violations before the
+code is reviewed by another human.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://eslint.org/&quot;&gt;ESLint&lt;/a&gt; is pretty much &lt;em&gt;the&lt;/em&gt; standard for linting JavaScript.&lt;/p&gt;
+
+&lt;h2 id=&quot;automatic-formatting&quot;&gt;Automatic formatting&lt;/h2&gt;
+
+&lt;p&gt;Automatic code formatting takes linting one step further. Instead of simply reporting violations, automatic code
+formatting can fix these violations for you. Why waste your time adding a semicolon here, comma there? Put those idle
+clock cycles to work.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://prettier.io/&quot;&gt;Prettier&lt;/a&gt; with &lt;a href=&quot;https://prettier.io/#:~:text=Editor%20Support&quot;&gt;editor plugins&lt;/a&gt; is a great way to
+automatically format your code on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;save&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prettier-example.gif&quot; alt=&quot;Prettier in action&quot; /&gt; &lt;em&gt;Prettier in action with Visual Studio Code.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I personally spend a lot of time with Visual Studio Code working with TypeScript and JavaScript so Prettier works really
+well for me. If you’re working with other technologies, look around for their equivalent tools.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-started-with-prettier&quot;&gt;Getting started with Prettier&lt;/h2&gt;
+
+&lt;p&gt;Using Prettier on a new code base is straight forward:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Install Prettier into your npm project: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm install --save-dev prettier&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install Prettier plugin for your editor (&lt;a href=&quot;https://github.com/prettier/prettier-vscode&quot;&gt;VSCode extension&lt;/a&gt;)&lt;/p&gt;
+
+    &lt;p&gt;Recommended: configure VSCode to format on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;save&lt;/code&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.vscode/settings.json&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;editor.formatOnSave&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Configure Prettier (start with the defaults and tweak to your liking)&lt;/p&gt;
+
+    &lt;p&gt;This is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.prettierrc.yml&lt;/code&gt; for one of my projects:&lt;/p&gt;
+
+    &lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;arrowParens&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;avoid&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;printWidth&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;120&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;quoteProps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;consistent&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;semi&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;singleQuote&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;tabWidth&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;trailingComma&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;all&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;overrides&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;files&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*.md'&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;markdown&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;proseWrap&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;always&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I recommend adding a couple of scripts to your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package.json&lt;/code&gt; to help with integration into automated builds&lt;/p&gt;
+
+    &lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;pretty&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;prettier . --write --loglevel warn&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;pretty:check&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;prettier . --check&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;I use the first with &lt;a href=&quot;https://www.npmjs.com/package/husky&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;husky&lt;/code&gt;&lt;/a&gt; on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pre-commit&lt;/code&gt; to fix up formatting where I’ve
+used an editor without the plugin, and the second as a verification step on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;build&lt;/code&gt; as a catch-all where the git hook
+hasn’t been installed. An example might be external contributors who use a different set of tools.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;using-prettier-on-an-established-code-base&quot;&gt;Using Prettier on an established code base&lt;/h2&gt;
+
+&lt;p&gt;It’s easy to add Prettier to a new or small code base, but what about a large/established code base?&lt;/p&gt;
+
+&lt;p&gt;You’ve got two options:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Just Do It&lt;/strong&gt;: let your team know what you’re about to do, get those outstanding pull requests merged… Any pull
+requests the haven’t been merged in time are going to have a rough time with merge conflicts.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Softly-softly&lt;/strong&gt;: turn Prettier on for new files only, and gradually enable it for the rest of your project one file
+at a time.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you choose the second option the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.prettierignore&lt;/code&gt; file is your friend.&lt;/p&gt;
+
+&lt;p&gt;Add an entry for all the files that you’re not ready to switch over into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.prettierignore&lt;/code&gt;. Any new files added to your
+project will have automated code formatting applied and when you’re ready to enable Prettier on an existing file, simply
+remove it from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.prettierignore&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;do-your-team-a-favor&quot;&gt;Do your team a favor&lt;/h2&gt;
+
+&lt;p&gt;Automatic code formatting will help boost your team’s productivity and produce more consistent code. You’ll no longer
+have to worry about the little things like whitespace, commas, and semicolons, and you can focus on the things that
+matter… the actual code.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;In my previous &lt;a href=&quot;/tools/2020/09/10/making-prettier-prettier.html&quot;&gt;post&lt;/a&gt;, I show how you can fix one the few issues
+that I have with Prettier.&lt;/em&gt;&lt;/p&gt;</content><author><name></name></author><category term="tools" /><category term="tools" /><category term="prettier" /><category term="tips" /><category term="code" /><category term="formatting" /><category term="productivity" /><summary type="html">If you’re not using an automatic code formatter, you’re wasting time (and money). Boost your team’s productivity by integrating one into your workflow today.</summary></entry><entry><title type="html">Making Prettier Prettier</title><link href="https://socsieng.github.io/tools/2020/09/10/making-prettier-prettier.html" rel="alternate" type="text/html" title="Making Prettier Prettier" /><published>2020-09-10T01:44:03+00:00</published><updated>2020-09-10T01:44:03+00:00</updated><id>https://socsieng.github.io/tools/2020/09/10/making-prettier-prettier</id><content type="html" xml:base="https://socsieng.github.io/tools/2020/09/10/making-prettier-prettier.html">&lt;p&gt;I like having consistently formatted code, but I hate formatting code. I’m also super pedantic about how my code should
+be formatted.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/prettier-code.png&quot; alt=&quot;Prettier example&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this post, I’ll show you how to apply a work-around for &lt;a href=&quot;https://prettier.io/&quot;&gt;Prettier&lt;/a&gt; that for me was always a
+blemish on an otherwise awesome code formatter. But first, some context.&lt;/p&gt;
+
+&lt;h2 id=&quot;context&quot;&gt;Context&lt;/h2&gt;
+
+&lt;p&gt;Prettier describes itself as &lt;em&gt;an opinionated code formatter&lt;/em&gt; which I’m cool with, as long as these opinions are the same
+as mine.&lt;/p&gt;
+
+&lt;p&gt;Where Prettier and I diverge is whether or not operators should appear at the beginning or the end of a line.&lt;/p&gt;
+
+&lt;p&gt;Prettier:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// prettier-ignore&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;booleanResult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;condition1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;condition2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;condition3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Me (&lt;a href=&quot;https://github.com/prettier/prettier/issues/3806&quot;&gt;plus a number of people on GitHub&lt;/a&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// prettier-ignore&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;booleanResult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;condition1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;condition2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;condition3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Prettier is so useful that I was willing to overlook the cancerous eyesore 🤮 that is the first example if it mean that
+I didn’t have to format the code myself. So I sucked it up and moved on… That was until this weekend when I stumbled
+upon some
+&lt;a href=&quot;https://github.com/prettier/prettier/issues/3806#issuecomment-687278788&quot;&gt;new activity on a related Github issue&lt;/a&gt;.
+&lt;a href=&quot;https://github.com/btmills&quot;&gt;@btmills&lt;/a&gt; had updated his &lt;a href=&quot;https://github.com/prettier/prettier/pull/7111&quot;&gt;pull request&lt;/a&gt;
+and included instructions on how to use it. 🎉&lt;/p&gt;
+
+&lt;p&gt;I &lt;a href=&quot;https://github.com/google-pay/google-pay-button/commit/95bc7ced6b1b37bde2ac21267ba8e781bdff0501&quot;&gt;applied&lt;/a&gt; it to one
+of &lt;a href=&quot;https://github.com/google-pay/google-pay-button/&quot;&gt;repositories&lt;/a&gt; that I manage but found that it wasn’t completely
+straight forward so I thought I’d share the additional steps required to get it working.&lt;/p&gt;
+
+&lt;h2 id=&quot;environment&quot;&gt;Environment&lt;/h2&gt;
+
+&lt;p&gt;I’m using npm (instead of yarn) with the following npm scripts in my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package.json&lt;/code&gt; which is where I think the problem
+lies:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;pretty&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;prettier . --write --loglevel warn&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;pretty:check&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;prettier . --check&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--save-dev&lt;/span&gt; prettier@npm:@btmills/prettier@^2.1.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For some reason, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prettier@npm:@btmills/prettier@^2.1.1&lt;/code&gt; does not create an executable under
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node_modules/.bin/prettier&lt;/code&gt;, however, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prettier&lt;/code&gt; does. So as a work-around, I referenced
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node_modules/prettier/bin-prettier.js&lt;/code&gt; directly instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prettier&lt;/code&gt; in my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package.json&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;pretty&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node_modules/prettier/bin-prettier.js . --write --loglevel warn&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;pretty:check&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node_modules/prettier/bin-prettier.js . --check&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I’m told that the package name format (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prettier@npm:@btmills/prettier@^2.1.1&lt;/code&gt;) is specific to yarn, and works as
+expected with yarn.&lt;/p&gt;
+
+&lt;p&gt;As an alternative, I could have used the github package name &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm install --save-dev prettier/prettier#pull/7111/head&lt;/code&gt;
+but I found that the installation process was significantly slower than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prettier@npm:@btmills/prettier@^2.1.1&lt;/code&gt;. I also
+liked the fact that the yarn syntax references an npm package and is therefore immutable. So I stuck with that.&lt;/p&gt;
+
+&lt;h2 id=&quot;looking-forward&quot;&gt;Looking forward&lt;/h2&gt;
+
+&lt;p&gt;Yes, this is a work-around that I’d prefer not to have to make, but at the same time, it doesn’t cause my eyes to tear
+up when I see my operators in the wrong location.&lt;/p&gt;
+
+&lt;p&gt;I plan to stick to this until Prettier &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.0&lt;/code&gt; is released with the &lt;em&gt;correct&lt;/em&gt; opinion applied.&lt;/p&gt;</content><author><name></name></author><category term="tools" /><category term="tools" /><category term="prettier" /><category term="tips" /><summary type="html">I like having consistently formatted code, but I hate formatting code. I’m also super pedantic about how my code should be formatted.</summary></entry><entry><title type="html">Using GitHub Actions Over GitHub Pages</title><link href="https://socsieng.github.io/blogging/2020/09/07/using-github-actions-over-github-pages.html" rel="alternate" type="text/html" title="Using GitHub Actions Over GitHub Pages" /><published>2020-09-07T20:30:19+00:00</published><updated>2020-09-07T20:30:19+00:00</updated><id>https://socsieng.github.io/blogging/2020/09/07/using-github-actions-over-github-pages</id><content type="html" xml:base="https://socsieng.github.io/blogging/2020/09/07/using-github-actions-over-github-pages.html">&lt;p&gt;I’m making the move from GitHub’s built-in Jekyll integration to GitHub Actions.&lt;/p&gt;
+
+&lt;p&gt;Jekyll lists a number of
+&lt;a href=&quot;https://jekyllrb.com/docs/continuous-integration/github-actions/#advantages-of-using-actions&quot;&gt;advantages of using GitHub Actions&lt;/a&gt;,
+however, I’m primarily interested in:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Improved indexing for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;related_posts&lt;/code&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--lsi&lt;/code&gt;
+(&lt;a href=&quot;https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing&quot;&gt;latent semantic indexing&lt;/a&gt;) which is
+not available with GitHub pages,&lt;/li&gt;
+  &lt;li&gt;Access to more plugins (not just those permitted by GitHub pages),&lt;/li&gt;
+  &lt;li&gt;More fine-grained control over how the site is generated - the current GitHub pages set up is a bit too magic-y and I
+don’t have visibility of what is actually happening when I commit changes, and&lt;/li&gt;
+  &lt;li&gt;Using the latest version of Jekyll&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;reverting-to-the-latest-version-of-jekyll&quot;&gt;Reverting to the latest version of Jekyll&lt;/h2&gt;
+
+&lt;p&gt;Step 1: Remove &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;github-pages&lt;/code&gt; from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;, and add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# gem &quot;github-pages&quot;, group: :jekyll_plugins&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 4.1.1&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;One of the things that broke for me was that the theme I was using didn’t work with the latest version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll&lt;/code&gt;. So I
+carefully copied the files from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gems/jekyll-theme-midnight-0.1.1&lt;/code&gt; into the root of my repository, and added the plugins
+that the theme referenced into my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:jekyll_plugins&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jekyll-seo-tag&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 2.0&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Verify that the site continues to work as expected.&lt;/p&gt;
+
+&lt;h2 id=&quot;adding-latent-semantic-indexing-locally&quot;&gt;Adding latent semantic indexing (locally)&lt;/h2&gt;
+
+&lt;p&gt;Latent semantic indexing support requires the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classifier-reborn&lt;/code&gt; plugin. This is added by updating the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:jekyll_plugins&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;classifier-reborn&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 2.2.0&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And then enabling it with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--lsi&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# install plugin&lt;/span&gt;
+bundle &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# start server locally&lt;/span&gt;
+bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;jekyll serve &lt;span class=&quot;nt&quot;&gt;--lsi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is the list of related posts before:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;h3 id=&quot;related-posts&quot;&gt;Related posts&lt;/h3&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Maintaining a Jekyll Blog with Gitpod&lt;/li&gt;
+    &lt;li&gt;Scripting a New Blog Post&lt;/li&gt;
+    &lt;li&gt;We Don’t Look Alike&lt;/li&gt;
+    &lt;li&gt;Automation Challenge: Image Optimization&lt;/li&gt;
+    &lt;li&gt;Customizing The Blog With Related Posts&lt;/li&gt;
+    &lt;li&gt;How Breaking My Hand Improved My Typing&lt;/li&gt;
+    &lt;li&gt;Adding Google Analytics&lt;/li&gt;
+    &lt;li&gt;Updating the Blog’s Theme&lt;/li&gt;
+    &lt;li&gt;Blogging for free with Jekyll&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;And after:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;h3 id=&quot;related-posts-1&quot;&gt;Related posts&lt;/h3&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Blogging for free with Jekyll&lt;/li&gt;
+    &lt;li&gt;Using GitHub Actions Over GitHub Pages&lt;/li&gt;
+    &lt;li&gt;Updating the Blog’s Theme&lt;/li&gt;
+    &lt;li&gt;Customizing The Blog With Related Posts&lt;/li&gt;
+    &lt;li&gt;Automation Challenge: Image Optimization&lt;/li&gt;
+    &lt;li&gt;How Breaking My Hand Improved My Typing&lt;/li&gt;
+    &lt;li&gt;Adding Google Analytics&lt;/li&gt;
+    &lt;li&gt;Maintaining a Jekyll Blog with Gitpod&lt;/li&gt;
+    &lt;li&gt;Scripting a New Blog Post&lt;/li&gt;
+    &lt;li&gt;We Don’t Look Alike&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Trust me, the updated list is much more relevant than a &lt;em&gt;recent posts&lt;/em&gt; list&lt;/p&gt;
+
+&lt;h2 id=&quot;adding-the-github-action-workflow&quot;&gt;Adding the GitHub Action workflow&lt;/h2&gt;
+
+&lt;p&gt;Previously, &lt;a href=&quot;https://socsieng.github.io/&quot;&gt;socsieng.github.io&lt;/a&gt; was automatically setup to build a static Jekyll site and
+publish to GitHub Pages. Without this automatic process, I now need publish my static site to a GitHub Pages branch
+(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt; by convention).&lt;/p&gt;
+
+&lt;p&gt;Jekyll provides a
+&lt;a href=&quot;https://jekyllrb.com/docs/continuous-integration/github-actions/#setting-up-the-action&quot;&gt;sample workflow file&lt;/a&gt;, which I
+use as a starting point for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.github/workflows/jekyll.yml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;jekyll build&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;branches&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;main&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;runs-on&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ubuntu-latest&lt;/span&gt;
+
+    &lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;actions/checkout@v2&lt;/span&gt;
+
+      &lt;span class=&quot;c1&quot;&gt;# Use GitHub Actions' cache to shorten build times and decrease load on servers&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;actions/cache@v1&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;vendor/bundle&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;restore-keys&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;|&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;${{ runner.os }}-gems-&lt;/span&gt;
+
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;uses&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;socsieng/jekyll-action@master&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;target_branch&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;gh-pages&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;JEKYLL_PAT&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;${{ secrets.JEKYLL_PAT }}&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;JEKYLL_ARGS&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;--lsi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I’ve had a look at the &lt;a href=&quot;https://github.com/helaili/jekyll-action/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;helaili/jekyll-action&lt;/code&gt;&lt;/a&gt; repository that the Jekyll
+documentation referenced and used some of the sample configuration there as well.&lt;/p&gt;
+
+&lt;p&gt;Note that I’ve forked &lt;a href=&quot;https://github.com/helaili/jekyll-action/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;helaili/jekyll-action&lt;/code&gt;&lt;/a&gt; to add support for additional
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JEKYLL_ARGS&lt;/code&gt; parameters so that I can pass in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--lsi&lt;/code&gt;. I’ve also raised a
+&lt;a href=&quot;https://github.com/helaili/jekyll-action/pull/56&quot;&gt;pull request&lt;/a&gt; back to the original repository.&lt;/p&gt;
+
+&lt;p&gt;A prerequisite to enabling this workflow is that you need to provide and configure a
+&lt;a href=&quot;https://github.com/settings/tokens&quot;&gt;GitHub Personal Access Token&lt;/a&gt; with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;public_repo&lt;/code&gt; scope for the workflow to use
+to publish site changes. I &lt;strong&gt;strongly&lt;/strong&gt; recommend creating a new token instead of reusing an existing one.&lt;/p&gt;
+
+&lt;h2 id=&quot;configuring-github-pages&quot;&gt;Configuring GitHub pages&lt;/h2&gt;
+
+&lt;p&gt;Once the workflow executes, a new branch is created &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt; (updated if you already had this branch).&lt;/p&gt;
+
+&lt;p&gt;The final step is to configure GitHub Pages to use this new branch:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/github-pages-config2.png&quot; alt=&quot;GitHub pages configuration&quot; /&gt; &lt;em&gt;Configure GitHub Pages.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;summing-up&quot;&gt;Summing up&lt;/h2&gt;
+
+&lt;p&gt;I switched over to GitHub Actions so that I could have more control over how my Jekyll site is generated. It is more
+involved than simply using the default GitHub/Jekyll integration, but I think it will pay off in the long run with more
+control and flexibility at my finger tips.&lt;/p&gt;
+
+&lt;p&gt;I hope this helps anybody else thinking about making the switch.&lt;/p&gt;</content><author><name></name></author><category term="blogging" /><category term="blogging" /><summary type="html">I’m making the move from GitHub’s built-in Jekyll integration to GitHub Actions.</summary></entry><entry><title type="html">Maintaining a Jekyll Blog with Gitpod</title><link href="https://socsieng.github.io/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html" rel="alternate" type="text/html" title="Maintaining a Jekyll Blog with Gitpod" /><published>2020-09-05T05:00:16+00:00</published><updated>2020-09-05T05:00:16+00:00</updated><id>https://socsieng.github.io/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod</id><content type="html" xml:base="https://socsieng.github.io/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html">&lt;p&gt;I’m editing this post with on my iPad with &lt;a href=&quot;https://gitpod.io/&quot;&gt;gitpod.io&lt;/a&gt;, and I’m very impressed. And I’m not easily
+impressed.&lt;/p&gt;
+
+&lt;p&gt;I first heard about gitpod.io when saw their post about how
+&lt;a href=&quot;https://www.gitpod.io/blog/opensource/&quot;&gt;Gitpod is now Open Source 🎉&lt;/a&gt;. When I started looking for solutions to manage
+the blog on my iPad, I thought I’d give it a try.&lt;/p&gt;
+
+&lt;p&gt;The environment is so familiar. It is pretty much Visual Studio in the browser, with some linux based environment
+accessible through the integrated terminal.&lt;/p&gt;
+
+&lt;p&gt;Almost everything that I’ve tried so far has worked (note that I’m not trying to break it… just use it):&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;command&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shift&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;p&lt;/code&gt; to toggle word wrap,&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prettier&lt;/code&gt; extension to automatically format posts as I save them,&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Executing and running the Jekyll server (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundle exec jekyll serve --watch&lt;/code&gt;),&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Previewing the site on Gitpod,&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Creating a new post with a custom script (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scripts/new-post.sh tools &quot;Maintaining a Jekyll Blog with Gitpod&quot;&lt;/code&gt;),&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Syntax highlighting,&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Commit files locally, and&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Push files to GitHub.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Things that don’t work:&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Upload an image (e.g. screenshot) via Gitpod (haven’t figured out how to do this yet),&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Terminating a command in the terminal with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ctrl&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c&lt;/code&gt; (at lease on the iPad with the Smart Keyboard),&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I haven’t spent very long with Gitpod, but I’m happy with the experience so far. It isn’t going to replace my laptop
+environment, but I think its a viable alternative for when I’m on the iPad (with the Apple Smart Keyboard).&lt;/p&gt;
+
+&lt;p&gt;I’ll keep this post updated as I learn more.&lt;/p&gt;</content><author><name></name></author><category term="tools" /><category term="tools" /><summary type="html">I’m editing this post with on my iPad with gitpod.io, and I’m very impressed. And I’m not easily impressed.</summary></entry><entry><title type="html">Scripting a New Blog Post</title><link href="https://socsieng.github.io/tools/2020/09/04/scripting-a-new-blog-post.html" rel="alternate" type="text/html" title="Scripting a New Blog Post" /><published>2020-09-04T20:02:27+00:00</published><updated>2020-09-04T20:02:27+00:00</updated><id>https://socsieng.github.io/tools/2020/09/04/scripting-a-new-blog-post</id><content type="html" xml:base="https://socsieng.github.io/tools/2020/09/04/scripting-a-new-blog-post.html">&lt;p&gt;I’m tired of manually creating a new Jekyll blog post which for me included copying an existing post, renaming the file
+with today’s date and the title of the post, updating the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;title&lt;/code&gt; attribute of the markdown file, and deleting the
+contents of the copied post.&lt;/p&gt;
+
+&lt;p&gt;That workflow ends today.&lt;/p&gt;
+
+&lt;p&gt;I’ve created a script (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scripts/new-post.sh&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;repo_folder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;git rev-parse &lt;span class=&quot;nt&quot;&gt;--show-toplevel&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;category&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$2&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;+%F %T %z&quot;&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;date_value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;+%F&quot;&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print tolower($0)}'&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sed&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s/[^a-zA-Z0-9]/-/g'&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;file_path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$repo_folder&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/_posts/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$date_value&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.md&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;---
+layout: post
+title: '&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$title&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;'
+date: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$timestamp&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
+categories: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$category&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
+tags: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$category&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
+---
+&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$file_path&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$file_path&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Usage:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scripts/new-post.sh &amp;lt;category&amp;gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;title&amp;gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It takes two arguments. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;category&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;title&lt;/code&gt;. Your title will probably contain spaces so you’ll want to generally wrap
+your blog post title in quotes.&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scripts/new-post.sh blogging &lt;span class=&quot;s2&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I’ve decided to write the new file path to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stdout&lt;/code&gt; so that I can &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;command&lt;/code&gt; + click the file name to quickly start
+editing in Visual Studio Code.&lt;/p&gt;
+
+&lt;p&gt;Demo:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/new-post.gif&quot; alt=&quot;New post script in action&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Edit:&lt;/p&gt;
+
+&lt;p&gt;Since writing this post, I found out that there is a plugin &lt;a href=&quot;https://github.com/jekyll/jekyll-compose&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll-compose&lt;/code&gt;&lt;/a&gt;
+which provides this functionality as well as more. I plan to stick with this script though. Its one less dependency, and
+does everything I need.&lt;/p&gt;</content><author><name></name></author><category term="tools" /><category term="tools" /><category term="blogging" /><summary type="html">I've created a script to help me create new Jekyll blog posts. Before this was copy/pasting an existing post... no more...</summary></entry><entry><title type="html">We Don’t Look Alike</title><link href="https://socsieng.github.io/stuff/2020/09/03/ted-lieu.html" rel="alternate" type="text/html" title="We Don’t Look Alike" /><published>2020-09-03T07:53:00+00:00</published><updated>2020-09-03T07:53:00+00:00</updated><id>https://socsieng.github.io/stuff/2020/09/03/ted-lieu</id><content type="html" xml:base="https://socsieng.github.io/stuff/2020/09/03/ted-lieu.html">&lt;p&gt;My wife saw U.S. Representative &lt;a href=&quot;https://en.wikipedia.org/wiki/Ted_Lieu&quot;&gt;Ted Lieu&lt;/a&gt; on TV today and thinks we look the
+same. For the record, we don’t.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/ted-lieu.jpg&quot; alt=&quot;Ted and I&quot; /&gt; &lt;em&gt;For anyone else who thinks they’re the same people, that’s me on the left and
+Ted Lieu on the right.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I think she might be racist. That or she needs new glasses.&lt;/p&gt;
+
+&lt;p&gt;The sad thing is that Ted is 11 years my senior and looks younger than me. 😭.&lt;/p&gt;</content><author><name></name></author><category term="stuff" /><category term="stuff" /><summary type="html">My wife saw U.S. Representative Ted Lieu on TV today and thinks we look the same. For the record, we don’t.</summary></entry><entry><title type="html">Automation Challenge: Image Optimization</title><link href="https://socsieng.github.io/tools/2020/09/03/automation-challeng-image-optimizations.html" rel="alternate" type="text/html" title="Automation Challenge: Image Optimization" /><published>2020-09-03T03:13:00+00:00</published><updated>2020-09-03T03:13:00+00:00</updated><id>https://socsieng.github.io/tools/2020/09/03/automation-challeng-image-optimizations</id><content type="html" xml:base="https://socsieng.github.io/tools/2020/09/03/automation-challeng-image-optimizations.html">&lt;p&gt;I’m looking for things to automate and I challenge you to do the same.&lt;/p&gt;
+
+&lt;p&gt;In this post, I’m going to automate a task that does not &lt;em&gt;spark joy&lt;/em&gt;. This time I’ve decided that it’s going to be
+optimizing images for this blog.&lt;/p&gt;
+
+&lt;h2 id=&quot;optimizing-images&quot;&gt;Optimizing images&lt;/h2&gt;
+
+&lt;p&gt;This blog is built with Jekyll and is running on GitHub pages. Jekyll is built with Ruby (a new language to me), so I’ll
+be using a Ruby gem called &lt;a href=&quot;https://github.com/toy/image_optim&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;image_optim&lt;/code&gt;&lt;/a&gt; to apply the optimizations. I do this by adding the dependency
+to my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:development&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;image_optim&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;require: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;image_optim_pack&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;require: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And then installing the dependency:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I’m going to organize scripts in the aptly named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scripts&lt;/code&gt; folder, and the Ruby script to optimize images will be named
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scripts/optimize-images.rb&lt;/code&gt; 🤯:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env ruby&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'rubygems'&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'bundler/setup'&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'image_optim'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# resolve the root folder of the repository&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;root_folder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`git rev-parse --show-toplevel`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;strip&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;directory?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root_folder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;root_folder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`pwd`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;strip&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# files to optimize: jpg, png, and gif files under assets/img&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;target_files&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root_folder&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/assets/img/*.{jpg,png,gif}&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# instantiate ImageOtim with configuration options&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;image_optim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ImageOptim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:pngout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:svgo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;:cache_dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root_folder&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/temp&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# execute image optimization&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;image_optim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;optimize_images!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target_files&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unoptimized&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;optimized&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;optimized&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# print filename to stdout&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;optimized&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Nothing too crazy going on here. Its not rocket surgery… 🚀🩺&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;A couple of things to note:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;I’ve specified the option &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:cache_dir&lt;/code&gt; which is a performance optimization. This allows &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;image_optim&lt;/code&gt; to &lt;em&gt;remember&lt;/em&gt;
+that it has already seen and optimized an image, and it won’t do it again. The image optimization process can be slow
+and taxing on the CPU.&lt;/li&gt;
+  &lt;li&gt;I am writing the file path of the optimized image (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;puts &quot;#{optimized}&quot;&lt;/code&gt;). This will come in handy later.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I can trigger an image optimization by executing the following command:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ruby scripts/optimize-images.rb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;automation&quot;&gt;Automation&lt;/h2&gt;
+
+&lt;p&gt;Having a script to optimize images is a great first step, but it still doesn’t spark any joy.&lt;/p&gt;
+
+&lt;p&gt;I need to figure out which event I should use as a trigger and I’ve settled on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pre-commit&lt;/code&gt; (instead of something like
+&lt;em&gt;build&lt;/em&gt;). The reason being that this is required step in my workflow which is create/edit a post locally on my computer,
+commit the changes, and push to GitHub.&lt;/p&gt;
+
+&lt;p&gt;I’m creating a script called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scripts/pre-commit.sh&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# get the repository root&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;repo_folder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;git rev-parse &lt;span class=&quot;nt&quot;&gt;--show-toplevel&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# use repository root if there is a value, otherwise use the current folder&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;root_folder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;repo_folder&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:-&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Performing image optimization for the first time can take a while. Sit tight...&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# execute image optimization and store results in a variable&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;optimized_images&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;ruby &lt;span class=&quot;nv&quot;&gt;$root_folder&lt;/span&gt;/scripts/optimize-images.rb&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$optimized_images&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$optimized_images&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; | &lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;image&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot; - Optimized &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$image&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+    git add &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$image&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;done
+fi
+
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Done.&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Don’t forget to make sure this script is executable (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chmod +x scripts/pre-commit.sh&lt;/code&gt;).&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;This is where output-ing the file path from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scripts/optimize-images.rb&lt;/code&gt; script comes into play. It is assigned to
+the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$optimized_images&lt;/code&gt; variable where we loop over each of them optimized images and stage them to the repository with
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git add&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In order to get this script executed on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pre-commit&lt;/code&gt;, I need to install it as a git &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pre-commit&lt;/code&gt; hook which can be done
+by copying this file to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.git/hooks/pre-commit&lt;/code&gt; (without the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.sh&lt;/code&gt; extension). I’ve created a little script to help me
+install it in case I need to re-install it on another device (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scripts/install-pre-commit.sh&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;script_folder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dirname&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$0&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;repo_folder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;git rev-parse &lt;span class=&quot;nt&quot;&gt;--show-toplevel&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$script_folder&lt;/span&gt;/pre-commit.sh &lt;span class=&quot;nv&quot;&gt;$repo_folder&lt;/span&gt;/.git/hooks/pre-commit
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Again, don’t forget to make this script executable. Install using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scripts/install-pre-commit.sh&lt;/code&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Once installed, any images that have not already been optimized every time I call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git commit&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;sparking-joy&quot;&gt;Sparking joy&lt;/h2&gt;
+
+&lt;p&gt;With very little effort, I’ve been able to automate an otherwise mindless activity.&lt;/p&gt;
+
+&lt;p&gt;And here are the results:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Image&lt;/th&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt;Size before&lt;/th&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt;Size after&lt;/th&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt;Improvement&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;github-pages-config.png&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;102K&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;51K&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;51K (50%)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;google-pay-vue.gif&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;2.9M&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;2.4M&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;0.5M (17%)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;jekyll-screenshot.png&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;520K&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;272K&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;248K (48%)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;jekyll-theming-1.png&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;570K&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;307K&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;263K (46%)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;jekyll-theming-2.png&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;536K&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;285K&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;251K (47%)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;jekyll-theming-3.png&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;569K&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;311K&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;258K (45%)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/marie-kondo.png&quot; alt=&quot;Discard everything that does not spark joy - Marie Kondo&quot; /&gt; &lt;em&gt;I’m sure Marie Kondo would
+approve.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I challenge you to find something/anything to automate. I want to hear about it: &lt;a href=&quot;https://twitter.com/aussoc&quot;&gt;@aussoc&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="tools" /><category term="tools" /><category term="automation" /><category term="ruby" /><category term="git" /><category term="hook" /><summary type="html">I’m looking for things to automate and I challenge you to do the same.</summary></entry></feed>

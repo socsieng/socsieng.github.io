@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Scripting a New Blog Post | Soc’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Scripting a New Blog Post" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I&#39;ve created a script to help me create new Jekyll blog posts. Before this was copy/pasting an existing post... no more..." />
+<meta property="og:description" content="I&#39;ve created a script to help me create new Jekyll blog posts. Before this was copy/pasting an existing post... no more..." />
+<link rel="canonical" href="https://socsieng.github.io/tools/2020/09/04/scripting-a-new-blog-post.html" />
+<meta property="og:url" content="https://socsieng.github.io/tools/2020/09/04/scripting-a-new-blog-post.html" />
+<meta property="og:site_name" content="Soc’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-04T20:02:27+00:00" />
+<script type="application/ld+json">
+{"description":"I&#39;ve created a script to help me create new Jekyll blog posts. Before this was copy/pasting an existing post... no more...","url":"https://socsieng.github.io/tools/2020/09/04/scripting-a-new-blog-post.html","@type":"BlogPosting","headline":"Scripting a New Blog Post","dateModified":"2020-09-04T20:02:27+00:00","datePublished":"2020-09-04T20:02:27+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://socsieng.github.io/tools/2020/09/04/scripting-a-new-blog-post.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=" />
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css" />
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1><a href="/">Soc's Blog</a></h1>
+          <div>
+            <p>Musings of an old Software Engineer.</p><ul class="social-media-list"><li>
+    <a href="https://github.com/socsieng"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#github"></use></svg>
+      <span class="username">socsieng</span></a
+    >
+  </li><li>
+    <a href="https://www.twitter.com/aussoc"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#twitter"></use></svg>
+      <span class="username">aussoc</span></a
+    >
+  </li></ul>
+</div>
+        </div>
+        <hr>
+
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Scripting a New Blog Post</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-09-04T20:02:27+00:00" itemprop="datePublished">
+        Sep 4, 2020
+      </time>| Edited:
+          <time class="dt-modified" datetime="2020-09-04T20:02:27+00:00" itemprop="dateModified">
+            Sep 5, 2020
+          </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I’m tired of manually creating a new Jekyll blog post which for me included copying an existing post, renaming the file
+with today’s date and the title of the post, updating the <code class="language-plaintext highlighter-rouge">title</code> attribute of the markdown file, and deleting the
+contents of the copied post.</p>
+
+<p>That workflow ends today.</p>
+
+<p>I’ve created a script (<code class="language-plaintext highlighter-rouge">scripts/new-post.sh</code>):</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env bash</span>
+<span class="nb">set</span> <span class="nt">-e</span>
+
+<span class="nv">repo_folder</span><span class="o">=</span><span class="sb">`</span>git rev-parse <span class="nt">--show-toplevel</span><span class="sb">`</span>
+
+<span class="nv">category</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">title</span><span class="o">=</span><span class="nv">$2</span>
+<span class="nv">timestamp</span><span class="o">=</span><span class="sb">`</span><span class="nb">date</span> <span class="s2">"+%F %T %z"</span><span class="sb">`</span>
+<span class="nv">date_value</span><span class="o">=</span><span class="sb">`</span><span class="nb">date</span> <span class="s2">"+%F"</span><span class="sb">`</span>
+<span class="nv">file</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$title</span> | <span class="nb">awk</span> <span class="s1">'{print tolower($0)}'</span> | <span class="nb">sed</span> <span class="nt">-e</span> <span class="s1">'s/[^a-zA-Z0-9]/-/g'</span><span class="sb">`</span>
+<span class="nv">file_path</span><span class="o">=</span><span class="s2">"</span><span class="nv">$repo_folder</span><span class="s2">/_posts/</span><span class="nv">$date_value</span><span class="s2">-</span><span class="nv">$file</span><span class="s2">.md"</span>
+
+<span class="nb">echo</span> <span class="s2">"---
+layout: post
+title: '</span><span class="nv">$title</span><span class="s2">'
+date: </span><span class="nv">$timestamp</span><span class="s2">
+categories: </span><span class="nv">$category</span><span class="s2">
+tags: </span><span class="nv">$category</span><span class="s2">
+---
+"</span> <span class="o">&gt;</span> <span class="nv">$file_path</span>
+
+<span class="nb">echo</span> <span class="nv">$file_path</span>
+</code></pre></div></div>
+
+<p>Usage:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scripts/new-post.sh &lt;category&gt; <span class="s2">"&lt;title&gt;"</span>
+</code></pre></div></div>
+
+<p>It takes two arguments. <code class="language-plaintext highlighter-rouge">category</code> and <code class="language-plaintext highlighter-rouge">title</code>. Your title will probably contain spaces so you’ll want to generally wrap
+your blog post title in quotes.</p>
+
+<p>Example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scripts/new-post.sh blogging <span class="s2">"My New Post"</span>
+</code></pre></div></div>
+
+<p>I’ve decided to write the new file path to <code class="language-plaintext highlighter-rouge">stdout</code> so that I can <code class="language-plaintext highlighter-rouge">command</code> + click the file name to quickly start
+editing in Visual Studio Code.</p>
+
+<p>Demo:</p>
+
+<p><img src="/assets/img/new-post.gif" alt="New post script in action" /></p>
+
+<p>Edit:</p>
+
+<p>Since writing this post, I found out that there is a plugin <a href="https://github.com/jekyll/jekyll-compose"><code class="language-plaintext highlighter-rouge">jekyll-compose</code></a>
+which provides this functionality as well as more. I plan to stick with this script though. Its one less dependency, and
+does everything I need.</p>
+
+  </div><div class="tags">Tags: tools, blogging
+  </div><hr></hr>
+  <h2 class="post-list-heading related-posts">Related posts</h2>
+  <ul class="post-list related-posts"><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/03/automation-challeng-image-optimizations.html">
+          Automation Challenge: Image Optimization
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html">
+          Maintaining a Jekyll Blog with Gitpod
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/09/07/using-github-actions-over-github-pages.html">
+          Using GitHub Actions Over GitHub Pages
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/11/automated-code-formatting-with-prettier.html">
+          Automated Code Formatting With Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/customizing-blog-related-posts.html">
+          Customizing The Blog With Related Posts
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/adding-google-analytics.html">
+          Adding Google Analytics
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/jekyll-theming.html">
+          Updating the Blog&#39;s Theme
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/29/blogging-for-free-wth-jekyll.html">
+          Blogging for free with Jekyll
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/10/making-prettier-prettier.html">
+          Making Prettier Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/08/30/faster-typing.html">
+          How Breaking My Hand Improved My Typing
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2021/01/04/released-sendkeys-2-0.html">
+          Released: sendkeys 2.0
+        </a>
+      </h3>
+    </li></ul><a class="u-url" href="/tools/2020/09/04/scripting-a-new-blog-post.html" hidden></a>
+</article>
+
+      </section><hr />
+<div class="footer">
+	<p>&copy; socsieng 2021 | All Rights Reserved. </p>
+	<ul class="page-links">
+		<li><a href="/readme">Readme</a></li>
+		<li><a href="/about">About Me</a></li>
+	</ul>
+</div></div>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-176795949-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>

@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Automation Challenge: Image Optimization | Soc’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Automation Challenge: Image Optimization" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’m looking for things to automate and I challenge you to do the same." />
+<meta property="og:description" content="I’m looking for things to automate and I challenge you to do the same." />
+<link rel="canonical" href="https://socsieng.github.io/tools/2020/09/03/automation-challeng-image-optimizations.html" />
+<meta property="og:url" content="https://socsieng.github.io/tools/2020/09/03/automation-challeng-image-optimizations.html" />
+<meta property="og:site_name" content="Soc’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-03T03:13:00+00:00" />
+<script type="application/ld+json">
+{"description":"I’m looking for things to automate and I challenge you to do the same.","url":"https://socsieng.github.io/tools/2020/09/03/automation-challeng-image-optimizations.html","@type":"BlogPosting","headline":"Automation Challenge: Image Optimization","dateModified":"2020-09-03T03:13:00+00:00","datePublished":"2020-09-03T03:13:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://socsieng.github.io/tools/2020/09/03/automation-challeng-image-optimizations.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=" />
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css" />
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1><a href="/">Soc's Blog</a></h1>
+          <div>
+            <p>Musings of an old Software Engineer.</p><ul class="social-media-list"><li>
+    <a href="https://github.com/socsieng"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#github"></use></svg>
+      <span class="username">socsieng</span></a
+    >
+  </li><li>
+    <a href="https://www.twitter.com/aussoc"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#twitter"></use></svg>
+      <span class="username">aussoc</span></a
+    >
+  </li></ul>
+</div>
+        </div>
+        <hr>
+
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Automation Challenge: Image Optimization</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-09-03T03:13:00+00:00" itemprop="datePublished">
+        Sep 3, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I’m looking for things to automate and I challenge you to do the same.</p>
+
+<p>In this post, I’m going to automate a task that does not <em>spark joy</em>. This time I’ve decided that it’s going to be
+optimizing images for this blog.</p>
+
+<h2 id="optimizing-images">Optimizing images</h2>
+
+<p>This blog is built with Jekyll and is running on GitHub pages. Jekyll is built with Ruby (a new language to me), so I’ll
+be using a Ruby gem called <a href="https://github.com/toy/image_optim"><code class="language-plaintext highlighter-rouge">image_optim</code></a> to apply the optimizations. I do this by adding the dependency
+to my <code class="language-plaintext highlighter-rouge">Gemfile</code>:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s2">"image_optim"</span><span class="p">,</span> <span class="ss">require: </span><span class="kp">false</span>
+  <span class="n">gem</span> <span class="s2">"image_optim_pack"</span><span class="p">,</span> <span class="ss">require: </span><span class="kp">false</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>And then installing the dependency:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>I’m going to organize scripts in the aptly named <code class="language-plaintext highlighter-rouge">scripts</code> folder, and the Ruby script to optimize images will be named
+<code class="language-plaintext highlighter-rouge">scripts/optimize-images.rb</code> 🤯:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env ruby</span>
+
+<span class="nb">require</span> <span class="s1">'rubygems'</span>
+<span class="nb">require</span> <span class="s1">'bundler/setup'</span>
+<span class="nb">require</span> <span class="s1">'image_optim'</span>
+
+<span class="c1"># resolve the root folder of the repository</span>
+<span class="n">root_folder</span> <span class="o">=</span> <span class="sb">`git rev-parse --show-toplevel`</span><span class="p">.</span><span class="nf">strip</span>
+<span class="k">if</span> <span class="o">!</span><span class="no">File</span><span class="p">.</span><span class="nf">directory?</span><span class="p">(</span><span class="n">root_folder</span><span class="p">)</span>
+  <span class="n">root_folder</span> <span class="o">=</span> <span class="sb">`pwd`</span><span class="p">.</span><span class="nf">strip</span>
+<span class="k">end</span>
+
+<span class="c1"># files to optimize: jpg, png, and gif files under assets/img</span>
+<span class="n">target_files</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="n">root_folder</span><span class="si">}</span><span class="s2">/assets/img/*.{jpg,png,gif}"</span>
+
+<span class="c1"># instantiate ImageOtim with configuration options</span>
+<span class="n">image_optim</span> <span class="o">=</span> <span class="no">ImageOptim</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">:pngout</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span>
+  <span class="ss">:svgo</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span>
+  <span class="ss">:cache_dir</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">#{</span><span class="n">root_folder</span><span class="si">}</span><span class="s2">/temp"</span>
+<span class="p">)</span>
+
+<span class="c1"># execute image optimization</span>
+<span class="n">image_optim</span><span class="p">.</span><span class="nf">optimize_images!</span><span class="p">(</span><span class="no">Dir</span><span class="p">[</span><span class="n">target_files</span><span class="p">])</span> <span class="k">do</span> <span class="o">|</span><span class="n">unoptimized</span><span class="p">,</span> <span class="n">optimized</span><span class="o">|</span>
+  <span class="k">if</span> <span class="n">optimized</span>
+    <span class="c1"># print filename to stdout</span>
+    <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">optimized</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><em>Nothing too crazy going on here. Its not rocket surgery… 🚀🩺</em></p>
+
+<p>A couple of things to note:</p>
+
+<ol>
+  <li>I’ve specified the option <code class="language-plaintext highlighter-rouge">:cache_dir</code> which is a performance optimization. This allows <code class="language-plaintext highlighter-rouge">image_optim</code> to <em>remember</em>
+that it has already seen and optimized an image, and it won’t do it again. The image optimization process can be slow
+and taxing on the CPU.</li>
+  <li>I am writing the file path of the optimized image (<code class="language-plaintext highlighter-rouge">puts "#{optimized}"</code>). This will come in handy later.</li>
+</ol>
+
+<p>I can trigger an image optimization by executing the following command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby scripts/optimize-images.rb
+</code></pre></div></div>
+
+<h2 id="automation">Automation</h2>
+
+<p>Having a script to optimize images is a great first step, but it still doesn’t spark any joy.</p>
+
+<p>I need to figure out which event I should use as a trigger and I’ve settled on <code class="language-plaintext highlighter-rouge">pre-commit</code> (instead of something like
+<em>build</em>). The reason being that this is required step in my workflow which is create/edit a post locally on my computer,
+commit the changes, and push to GitHub.</p>
+
+<p>I’m creating a script called <code class="language-plaintext highlighter-rouge">scripts/pre-commit.sh</code>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env bash</span>
+<span class="nb">set</span> <span class="nt">-e</span>
+
+<span class="c"># get the repository root</span>
+<span class="nv">repo_folder</span><span class="o">=</span><span class="sb">`</span>git rev-parse <span class="nt">--show-toplevel</span><span class="sb">`</span>
+
+<span class="c"># use repository root if there is a value, otherwise use the current folder</span>
+<span class="nv">root_folder</span><span class="o">=</span><span class="k">${</span><span class="nv">repo_folder</span><span class="k">:-</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span><span class="k">}</span>
+
+<span class="nb">echo</span> <span class="s2">"Performing image optimization for the first time can take a while. Sit tight..."</span>
+
+<span class="c"># execute image optimization and store results in a variable</span>
+<span class="nv">optimized_images</span><span class="o">=</span><span class="sb">`</span>ruby <span class="nv">$root_folder</span>/scripts/optimize-images.rb<span class="sb">`</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-n</span> <span class="s2">"</span><span class="nv">$optimized_images</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+  </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$optimized_images</span><span class="s2">"</span> | <span class="k">while </span><span class="nb">read </span>image<span class="p">;</span> <span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">" - Optimized </span><span class="nv">$image</span><span class="s2">"</span>
+    git add <span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span>
+  <span class="k">done
+fi
+
+</span><span class="nb">echo</span> <span class="s2">"Done."</span>
+</code></pre></div></div>
+
+<p><em>Don’t forget to make sure this script is executable (<code class="language-plaintext highlighter-rouge">chmod +x scripts/pre-commit.sh</code>).</em></p>
+
+<p>This is where output-ing the file path from the <code class="language-plaintext highlighter-rouge">scripts/optimize-images.rb</code> script comes into play. It is assigned to
+the <code class="language-plaintext highlighter-rouge">$optimized_images</code> variable where we loop over each of them optimized images and stage them to the repository with
+<code class="language-plaintext highlighter-rouge">git add</code>.</p>
+
+<p>In order to get this script executed on <code class="language-plaintext highlighter-rouge">pre-commit</code>, I need to install it as a git <code class="language-plaintext highlighter-rouge">pre-commit</code> hook which can be done
+by copying this file to <code class="language-plaintext highlighter-rouge">.git/hooks/pre-commit</code> (without the <code class="language-plaintext highlighter-rouge">.sh</code> extension). I’ve created a little script to help me
+install it in case I need to re-install it on another device (<code class="language-plaintext highlighter-rouge">scripts/install-pre-commit.sh</code>):</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env bash</span>
+<span class="nb">set</span> <span class="nt">-e</span>
+
+<span class="nv">script_folder</span><span class="o">=</span><span class="sb">`</span><span class="nb">cd</span> <span class="si">$(</span><span class="nb">dirname</span> <span class="nv">$0</span><span class="si">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="sb">`</span>
+<span class="nv">repo_folder</span><span class="o">=</span><span class="sb">`</span>git rev-parse <span class="nt">--show-toplevel</span><span class="sb">`</span>
+
+<span class="nb">cp</span> <span class="nt">-f</span> <span class="nv">$script_folder</span>/pre-commit.sh <span class="nv">$repo_folder</span>/.git/hooks/pre-commit
+</code></pre></div></div>
+
+<p><em>Again, don’t forget to make this script executable. Install using <code class="language-plaintext highlighter-rouge">scripts/install-pre-commit.sh</code>.</em></p>
+
+<p>Once installed, any images that have not already been optimized every time I call <code class="language-plaintext highlighter-rouge">git commit</code>.</p>
+
+<h2 id="sparking-joy">Sparking joy</h2>
+
+<p>With very little effort, I’ve been able to automate an otherwise mindless activity.</p>
+
+<p>And here are the results:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Image</th>
+      <th style="text-align: right">Size before</th>
+      <th style="text-align: right">Size after</th>
+      <th style="text-align: right">Improvement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">github-pages-config.png</td>
+      <td style="text-align: right">102K</td>
+      <td style="text-align: right">51K</td>
+      <td style="text-align: right">51K (50%)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">google-pay-vue.gif</td>
+      <td style="text-align: right">2.9M</td>
+      <td style="text-align: right">2.4M</td>
+      <td style="text-align: right">0.5M (17%)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">jekyll-screenshot.png</td>
+      <td style="text-align: right">520K</td>
+      <td style="text-align: right">272K</td>
+      <td style="text-align: right">248K (48%)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">jekyll-theming-1.png</td>
+      <td style="text-align: right">570K</td>
+      <td style="text-align: right">307K</td>
+      <td style="text-align: right">263K (46%)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">jekyll-theming-2.png</td>
+      <td style="text-align: right">536K</td>
+      <td style="text-align: right">285K</td>
+      <td style="text-align: right">251K (47%)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">jekyll-theming-3.png</td>
+      <td style="text-align: right">569K</td>
+      <td style="text-align: right">311K</td>
+      <td style="text-align: right">258K (45%)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="/assets/img/marie-kondo.png" alt="Discard everything that does not spark joy - Marie Kondo" /> <em>I’m sure Marie Kondo would
+approve.</em></p>
+
+<p>I challenge you to find something/anything to automate. I want to hear about it: <a href="https://twitter.com/aussoc">@aussoc</a>.</p>
+
+
+  </div><div class="tags">Tags: tools, automation, ruby, git, hook
+  </div><hr></hr>
+  <h2 class="post-list-heading related-posts">Related posts</h2>
+  <ul class="post-list related-posts"><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/09/07/using-github-actions-over-github-pages.html">
+          Using GitHub Actions Over GitHub Pages
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/11/automated-code-formatting-with-prettier.html">
+          Automated Code Formatting With Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/29/blogging-for-free-wth-jekyll.html">
+          Blogging for free with Jekyll
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/04/scripting-a-new-blog-post.html">
+          Scripting a New Blog Post
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/customizing-blog-related-posts.html">
+          Customizing The Blog With Related Posts
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/10/making-prettier-prettier.html">
+          Making Prettier Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/08/30/faster-typing.html">
+          How Breaking My Hand Improved My Typing
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/jekyll-theming.html">
+          Updating the Blog&#39;s Theme
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html">
+          Maintaining a Jekyll Blog with Gitpod
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2021/01/04/released-sendkeys-2-0.html">
+          Released: sendkeys 2.0
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/09/14/eleventy-as-a-javascript-blogging-platform.html">
+          Eleventy as a JavaScript Blogging Platform
+        </a>
+      </h3>
+    </li></ul><a class="u-url" href="/tools/2020/09/03/automation-challeng-image-optimizations.html" hidden></a>
+</article>
+
+      </section><hr />
+<div class="footer">
+	<p>&copy; socsieng 2021 | All Rights Reserved. </p>
+	<ul class="page-links">
+		<li><a href="/readme">Readme</a></li>
+		<li><a href="/about">About Me</a></li>
+	</ul>
+</div></div>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-176795949-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>

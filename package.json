@@ -1,0 +1,28 @@
+{
+  "name": "socsieng.github.io",
+  "version": "0.0.1",
+  "description": "socsieng.github.io blog",
+  "main": "index.js",
+  "scripts": {
+    "pretty": "node_modules/prettier/bin-prettier.js . --write --loglevel warn",
+    "pretty:check": "node_modules/prettier/bin-prettier.js . --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/socsieng/socsieng.github.io.git"
+  },
+  "keywords": [
+    "jekyll",
+    "blog"
+  ],
+  "author": "socsieng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/socsieng/socsieng.github.io/issues"
+  },
+  "homepage": "https://github.com/socsieng/socsieng.github.io#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "npm:@btmills/prettier@^2.1.1"
+  }
+}

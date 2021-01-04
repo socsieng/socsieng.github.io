@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Maintaining a Jekyll Blog with Gitpod | Soc’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Maintaining a Jekyll Blog with Gitpod" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’m editing this post with on my iPad with gitpod.io, and I’m very impressed. And I’m not easily impressed." />
+<meta property="og:description" content="I’m editing this post with on my iPad with gitpod.io, and I’m very impressed. And I’m not easily impressed." />
+<link rel="canonical" href="https://socsieng.github.io/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html" />
+<meta property="og:url" content="https://socsieng.github.io/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html" />
+<meta property="og:site_name" content="Soc’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-05T05:00:16+00:00" />
+<script type="application/ld+json">
+{"description":"I’m editing this post with on my iPad with gitpod.io, and I’m very impressed. And I’m not easily impressed.","url":"https://socsieng.github.io/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html","@type":"BlogPosting","headline":"Maintaining a Jekyll Blog with Gitpod","dateModified":"2020-09-05T05:00:16+00:00","datePublished":"2020-09-05T05:00:16+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://socsieng.github.io/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=" />
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css" />
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1><a href="/">Soc's Blog</a></h1>
+          <div>
+            <p>Musings of an old Software Engineer.</p><ul class="social-media-list"><li>
+    <a href="https://github.com/socsieng"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#github"></use></svg>
+      <span class="username">socsieng</span></a
+    >
+  </li><li>
+    <a href="https://www.twitter.com/aussoc"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#twitter"></use></svg>
+      <span class="username">aussoc</span></a
+    >
+  </li></ul>
+</div>
+        </div>
+        <hr>
+
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Maintaining a Jekyll Blog with Gitpod</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-09-05T05:00:16+00:00" itemprop="datePublished">
+        Sep 5, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I’m editing this post with on my iPad with <a href="https://gitpod.io/">gitpod.io</a>, and I’m very impressed. And I’m not easily
+impressed.</p>
+
+<p>I first heard about gitpod.io when saw their post about how
+<a href="https://www.gitpod.io/blog/opensource/">Gitpod is now Open Source 🎉</a>. When I started looking for solutions to manage
+the blog on my iPad, I thought I’d give it a try.</p>
+
+<p>The environment is so familiar. It is pretty much Visual Studio in the browser, with some linux based environment
+accessible through the integrated terminal.</p>
+
+<p>Almost everything that I’ve tried so far has worked (note that I’m not trying to break it… just use it):</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code class="language-plaintext highlighter-rouge">command</code> + <code class="language-plaintext highlighter-rouge">shift</code> + <code class="language-plaintext highlighter-rouge">p</code> to toggle word wrap,</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Install <code class="language-plaintext highlighter-rouge">prettier</code> extension to automatically format posts as I save them,</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Executing and running the Jekyll server (<code class="language-plaintext highlighter-rouge">bundle exec jekyll serve --watch</code>),</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Previewing the site on Gitpod,</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Creating a new post with a custom script (<code class="language-plaintext highlighter-rouge">scripts/new-post.sh tools "Maintaining a Jekyll Blog with Gitpod"</code>),</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Syntax highlighting,</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Commit files locally, and</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Push files to GitHub.</li>
+</ul>
+
+<p>Things that don’t work:</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Upload an image (e.g. screenshot) via Gitpod (haven’t figured out how to do this yet),</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Terminating a command in the terminal with <code class="language-plaintext highlighter-rouge">ctrl</code> + <code class="language-plaintext highlighter-rouge">c</code> (at lease on the iPad with the Smart Keyboard),</li>
+</ul>
+
+<p>I haven’t spent very long with Gitpod, but I’m happy with the experience so far. It isn’t going to replace my laptop
+environment, but I think its a viable alternative for when I’m on the iPad (with the Apple Smart Keyboard).</p>
+
+<p>I’ll keep this post updated as I learn more.</p>
+
+  </div><div class="tags">Tags: tools
+  </div><hr></hr>
+  <h2 class="post-list-heading related-posts">Related posts</h2>
+  <ul class="post-list related-posts"><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/09/07/using-github-actions-over-github-pages.html">
+          Using GitHub Actions Over GitHub Pages
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/04/scripting-a-new-blog-post.html">
+          Scripting a New Blog Post
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/09/14/eleventy-as-a-javascript-blogging-platform.html">
+          Eleventy as a JavaScript Blogging Platform
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/11/automated-code-formatting-with-prettier.html">
+          Automated Code Formatting With Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/29/blogging-for-free-wth-jekyll.html">
+          Blogging for free with Jekyll
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/03/automation-challeng-image-optimizations.html">
+          Automation Challenge: Image Optimization
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2021/01/04/released-sendkeys-2-0.html">
+          Released: sendkeys 2.0
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/customizing-blog-related-posts.html">
+          Customizing The Blog With Related Posts
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/10/making-prettier-prettier.html">
+          Making Prettier Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/adding-google-analytics.html">
+          Adding Google Analytics
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/jekyll-theming.html">
+          Updating the Blog&#39;s Theme
+        </a>
+      </h3>
+    </li></ul><a class="u-url" href="/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html" hidden></a>
+</article>
+
+      </section><hr />
+<div class="footer">
+	<p>&copy; socsieng 2021 | All Rights Reserved. </p>
+	<ul class="page-links">
+		<li><a href="/readme">Readme</a></li>
+		<li><a href="/about">About Me</a></li>
+	</ul>
+</div></div>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-176795949-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>

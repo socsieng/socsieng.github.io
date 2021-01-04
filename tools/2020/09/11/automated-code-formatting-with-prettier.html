@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Automated Code Formatting With Prettier | Soc’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Automated Code Formatting With Prettier" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="If you’re not using an automatic code formatter, you’re wasting time (and money). Boost your team’s productivity by integrating one into your workflow today." />
+<meta property="og:description" content="If you’re not using an automatic code formatter, you’re wasting time (and money). Boost your team’s productivity by integrating one into your workflow today." />
+<link rel="canonical" href="https://socsieng.github.io/tools/2020/09/11/automated-code-formatting-with-prettier.html" />
+<meta property="og:url" content="https://socsieng.github.io/tools/2020/09/11/automated-code-formatting-with-prettier.html" />
+<meta property="og:site_name" content="Soc’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-11T02:46:00+00:00" />
+<script type="application/ld+json">
+{"description":"If you’re not using an automatic code formatter, you’re wasting time (and money). Boost your team’s productivity by integrating one into your workflow today.","url":"https://socsieng.github.io/tools/2020/09/11/automated-code-formatting-with-prettier.html","@type":"BlogPosting","headline":"Automated Code Formatting With Prettier","dateModified":"2020-09-11T02:46:00+00:00","datePublished":"2020-09-11T02:46:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://socsieng.github.io/tools/2020/09/11/automated-code-formatting-with-prettier.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=" />
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css" />
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1><a href="/">Soc's Blog</a></h1>
+          <div>
+            <p>Musings of an old Software Engineer.</p><ul class="social-media-list"><li>
+    <a href="https://github.com/socsieng"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#github"></use></svg>
+      <span class="username">socsieng</span></a
+    >
+  </li><li>
+    <a href="https://www.twitter.com/aussoc"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#twitter"></use></svg>
+      <span class="username">aussoc</span></a
+    >
+  </li></ul>
+</div>
+        </div>
+        <hr>
+
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Automated Code Formatting With Prettier</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-09-11T02:46:00+00:00" itemprop="datePublished">
+        Sep 11, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>If you’re not using an automatic code formatter, you’re wasting time (and money). Boost your team’s productivity by
+integrating one into your workflow today.</p>
+
+<p>Consistency is important when maintaining large code bases, across multiple contributors (especially for open source
+projects). If consistency is important to you, then there are a few ways to maintain consistency in your code base:</p>
+
+<ol>
+  <li>Code review</li>
+  <li>Linting</li>
+  <li>Automatic formatting</li>
+</ol>
+
+<p>Each option is built on top of the options before them.</p>
+
+<h2 id="during-code-review">During code review</h2>
+
+<p>I order to maintain consistency during code reviews, you need to start with a coding standards/guidelines.</p>
+
+<p>It <del>could</del> should be as simple as:</p>
+
+<blockquote>
+  <p>We use the <a href="https://github.com/airbnb/javascript">Airbnb JavaScript Style Guide</a> here.</p>
+</blockquote>
+
+<p>Stick to a well known style guide unless you have a good reason not to… and don’t forget to actually do the code
+review.</p>
+
+<h2 id="linting">Linting</h2>
+
+<p>Linting builds on top of guidelines. It takes these guidelines and <em>codifies</em> them, identifying violations before the
+code is reviewed by another human.</p>
+
+<p><a href="https://eslint.org/">ESLint</a> is pretty much <em>the</em> standard for linting JavaScript.</p>
+
+<h2 id="automatic-formatting">Automatic formatting</h2>
+
+<p>Automatic code formatting takes linting one step further. Instead of simply reporting violations, automatic code
+formatting can fix these violations for you. Why waste your time adding a semicolon here, comma there? Put those idle
+clock cycles to work.</p>
+
+<p><a href="https://prettier.io/">Prettier</a> with <a href="https://prettier.io/#:~:text=Editor%20Support">editor plugins</a> is a great way to
+automatically format your code on <code class="language-plaintext highlighter-rouge">save</code>.</p>
+
+<p><img src="/assets/img/prettier-example.gif" alt="Prettier in action" /> <em>Prettier in action with Visual Studio Code.</em></p>
+
+<p>I personally spend a lot of time with Visual Studio Code working with TypeScript and JavaScript so Prettier works really
+well for me. If you’re working with other technologies, look around for their equivalent tools.</p>
+
+<h2 id="getting-started-with-prettier">Getting started with Prettier</h2>
+
+<p>Using Prettier on a new code base is straight forward:</p>
+
+<ol>
+  <li>Install Prettier into your npm project: <code class="language-plaintext highlighter-rouge">npm install --save-dev prettier</code></li>
+  <li>
+    <p>Install Prettier plugin for your editor (<a href="https://github.com/prettier/prettier-vscode">VSCode extension</a>)</p>
+
+    <p>Recommended: configure VSCode to format on <code class="language-plaintext highlighter-rouge">save</code> with <code class="language-plaintext highlighter-rouge">.vscode/settings.json</code>:</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"editor.formatOnSave"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Configure Prettier (start with the defaults and tweak to your liking)</p>
+
+    <p>This is the <code class="language-plaintext highlighter-rouge">.prettierrc.yml</code> for one of my projects:</p>
+
+    <div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">arrowParens</span><span class="pi">:</span> <span class="s">avoid</span>
+<span class="na">printWidth</span><span class="pi">:</span> <span class="m">120</span>
+<span class="na">quoteProps</span><span class="pi">:</span> <span class="s">consistent</span>
+<span class="na">semi</span><span class="pi">:</span> <span class="no">true</span>
+<span class="na">singleQuote</span><span class="pi">:</span> <span class="no">true</span>
+<span class="na">tabWidth</span><span class="pi">:</span> <span class="m">2</span>
+<span class="na">trailingComma</span><span class="pi">:</span> <span class="s">all</span>
+<span class="na">overrides</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">files</span><span class="pi">:</span> <span class="s1">'</span><span class="s">*.md'</span>
+    <span class="na">options</span><span class="pi">:</span>
+      <span class="na">parser</span><span class="pi">:</span> <span class="s">markdown</span>
+      <span class="na">proseWrap</span><span class="pi">:</span> <span class="s">always</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>I recommend adding a couple of scripts to your <code class="language-plaintext highlighter-rouge">package.json</code> to help with integration into automated builds</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pretty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prettier . --write --loglevel warn"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pretty:check"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prettier . --check"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p>I use the first with <a href="https://www.npmjs.com/package/husky"><code class="language-plaintext highlighter-rouge">husky</code></a> on <code class="language-plaintext highlighter-rouge">pre-commit</code> to fix up formatting where I’ve
+used an editor without the plugin, and the second as a verification step on <code class="language-plaintext highlighter-rouge">build</code> as a catch-all where the git hook
+hasn’t been installed. An example might be external contributors who use a different set of tools.</p>
+  </li>
+</ol>
+
+<h2 id="using-prettier-on-an-established-code-base">Using Prettier on an established code base</h2>
+
+<p>It’s easy to add Prettier to a new or small code base, but what about a large/established code base?</p>
+
+<p>You’ve got two options:</p>
+
+<ol>
+  <li><strong>Just Do It</strong>: let your team know what you’re about to do, get those outstanding pull requests merged… Any pull
+requests the haven’t been merged in time are going to have a rough time with merge conflicts.</li>
+  <li><strong>Softly-softly</strong>: turn Prettier on for new files only, and gradually enable it for the rest of your project one file
+at a time.</li>
+</ol>
+
+<p>If you choose the second option the <code class="language-plaintext highlighter-rouge">.prettierignore</code> file is your friend.</p>
+
+<p>Add an entry for all the files that you’re not ready to switch over into <code class="language-plaintext highlighter-rouge">.prettierignore</code>. Any new files added to your
+project will have automated code formatting applied and when you’re ready to enable Prettier on an existing file, simply
+remove it from <code class="language-plaintext highlighter-rouge">.prettierignore</code>.</p>
+
+<h2 id="do-your-team-a-favor">Do your team a favor</h2>
+
+<p>Automatic code formatting will help boost your team’s productivity and produce more consistent code. You’ll no longer
+have to worry about the little things like whitespace, commas, and semicolons, and you can focus on the things that
+matter… the actual code.</p>
+
+<p><em>In my previous <a href="/tools/2020/09/10/making-prettier-prettier.html">post</a>, I show how you can fix one the few issues
+that I have with Prettier.</em></p>
+
+  </div><div class="tags">Tags: tools, prettier, tips, code, formatting, productivity
+  </div><hr></hr>
+  <h2 class="post-list-heading related-posts">Related posts</h2>
+  <ul class="post-list related-posts"><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/09/07/using-github-actions-over-github-pages.html">
+          Using GitHub Actions Over GitHub Pages
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/10/making-prettier-prettier.html">
+          Making Prettier Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/03/automation-challeng-image-optimizations.html">
+          Automation Challenge: Image Optimization
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/29/blogging-for-free-wth-jekyll.html">
+          Blogging for free with Jekyll
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/08/30/faster-typing.html">
+          How Breaking My Hand Improved My Typing
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/jekyll-theming.html">
+          Updating the Blog&#39;s Theme
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/17/released-sendkeys-macos-now-stable.html">
+          Released: sendkeys-macos Now Stable 🎉
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html">
+          Maintaining a Jekyll Blog with Gitpod
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/04/scripting-a-new-blog-post.html">
+          Scripting a New Blog Post
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/customizing-blog-related-posts.html">
+          Customizing The Blog With Related Posts
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/adding-google-analytics.html">
+          Adding Google Analytics
+        </a>
+      </h3>
+    </li></ul><a class="u-url" href="/tools/2020/09/11/automated-code-formatting-with-prettier.html" hidden></a>
+</article>
+
+      </section><hr />
+<div class="footer">
+	<p>&copy; socsieng 2021 | All Rights Reserved. </p>
+	<ul class="page-links">
+		<li><a href="/readme">Readme</a></li>
+		<li><a href="/about">About Me</a></li>
+	</ul>
+</div></div>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-176795949-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>

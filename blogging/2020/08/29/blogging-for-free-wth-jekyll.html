@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Blogging for free with Jekyll | Soc’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Blogging for free with Jekyll" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’m starting a blog and I don’t want to pay for it. I’m cheap." />
+<meta property="og:description" content="I’m starting a blog and I don’t want to pay for it. I’m cheap." />
+<link rel="canonical" href="https://socsieng.github.io/blogging/2020/08/29/blogging-for-free-wth-jekyll.html" />
+<meta property="og:url" content="https://socsieng.github.io/blogging/2020/08/29/blogging-for-free-wth-jekyll.html" />
+<meta property="og:site_name" content="Soc’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-29T23:57:57+00:00" />
+<script type="application/ld+json">
+{"description":"I’m starting a blog and I don’t want to pay for it. I’m cheap.","url":"https://socsieng.github.io/blogging/2020/08/29/blogging-for-free-wth-jekyll.html","@type":"BlogPosting","headline":"Blogging for free with Jekyll","dateModified":"2020-08-29T23:57:57+00:00","datePublished":"2020-08-29T23:57:57+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://socsieng.github.io/blogging/2020/08/29/blogging-for-free-wth-jekyll.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=" />
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css" />
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1><a href="/">Soc's Blog</a></h1>
+          <div>
+            <p>Musings of an old Software Engineer.</p><ul class="social-media-list"><li>
+    <a href="https://github.com/socsieng"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#github"></use></svg>
+      <span class="username">socsieng</span></a
+    >
+  </li><li>
+    <a href="https://www.twitter.com/aussoc"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#twitter"></use></svg>
+      <span class="username">aussoc</span></a
+    >
+  </li></ul>
+</div>
+        </div>
+        <hr>
+
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Blogging for free with Jekyll</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-08-29T23:57:57+00:00" itemprop="datePublished">
+        Aug 29, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I’m starting a blog and I don’t want to pay for it. I’m cheap.</p>
+
+<p>In this post, I’ll share my experience of setting up a blog with <a href="https://jekyllrb.com/">Jekyll</a> and GitHub as I go through the process
+myself.</p>
+
+<h2 id="why-jekyll-and-github-pages">Why Jekyll and GitHub Pages?</h2>
+
+<p>I actually started with GitHub Pages because it’s been on my list of things to try out. I landed on Jekyll because a
+quick search on Google for the term “github blogging” said that’s what I should use.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>Starting with the <a href="https://jekyllrb.com/">Jekyll</a> instructions:</p>
+
+<blockquote>
+  <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem <span class="nb">install </span>bundler jekyll
+jekyll new my-awesome-site
+<span class="nb">cd </span>my-awesome-site
+bundle <span class="nb">exec </span>jekyll serve
+<span class="c"># =&gt; Now browse to http://localhost:4000</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<p>Browsing the site was about what I expected. Simple and sparse, which is a great start but I’m definitely going to be
+looking for a new theme (I’ll cover that in <a href="/blogging/2020/08/30/jekyll-theming.html">another post</a>).</p>
+
+<p><img src="/assets/img/jekyll-screenshot.png" alt="Jekyll screenshot" /> <em>Jekyll screenshot.</em></p>
+
+<h2 id="under-the-hood">Under the hood</h2>
+
+<p>I was actually more interested in understanding how the site is structured, so I fired up Visual Studio Code to have a
+look inside. I was happy with what I saw initially which nice and relatively empty project.</p>
+
+<h3 id="tweaking">Tweaking</h3>
+
+<p>There were a couple of things that I did straight away because I have a particular preference for how my code should
+look. I started with the following changes:</p>
+
+<ol>
+  <li>
+    <p>Initialize a git repository. I’m planning on publishing to GitHub anyway and I want to do this as early as possible
+in case I break something, I’ll have a restore point.</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+git add <span class="nt">-A</span>
+git commit <span class="nt">-am</span> <span class="s1">'feat: initial commit'</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Edit site configuration with the <code class="language-plaintext highlighter-rouge">_config.yml</code> file. I updated the following <code class="language-plaintext highlighter-rouge">title</code>, <code class="language-plaintext highlighter-rouge">description</code>,
+<code class="language-plaintext highlighter-rouge">twitter_username</code>, and <code class="language-plaintext highlighter-rouge">github_username</code>.</li>
+  <li>I didn’t like the <code class="language-plaintext highlighter-rouge">.markdown</code> extensions for the markdown files so I renamed the files to <code class="language-plaintext highlighter-rouge">.md</code>.</li>
+  <li>
+    <p>Configure VS Code with <a href="https://prettier.io/">Prettier</a> to automatically format the markdown files on save. I’m using the
+<a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode">Prettier VSCode extension</a>. This configuration makes me happy:</p>
+
+    <ol>
+      <li>
+        <p>Create <code class="language-plaintext highlighter-rouge">.vscode/settings.json</code> file:</p>
+
+        <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"editor.formatOnSave"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>        </div>
+      </li>
+      <li>
+        <p>Create <code class="language-plaintext highlighter-rouge">.prettierrc.yml</code> file:</p>
+
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">printWidth</span><span class="pi">:</span> <span class="m">120</span>
+<span class="na">singleQuote</span><span class="pi">:</span> <span class="no">true</span>
+<span class="na">tabWidth</span><span class="pi">:</span> <span class="m">2</span>
+<span class="na">overrides</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">files</span><span class="pi">:</span> <span class="s1">'</span><span class="s">*.md'</span>
+    <span class="na">options</span><span class="pi">:</span>
+      <span class="na">parser</span><span class="pi">:</span> <span class="s">markdown</span>
+      <span class="na">proseWrap</span><span class="pi">:</span> <span class="s">always</span>
+</code></pre></div>        </div>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="publishing-changes-to-github-pages">Publishing changes to GitHub pages</h2>
+
+<p>I followed the <a href="https://docs.github.com/en/github/working-with-github-pages/creating-a-github-pages-site-with-jekyll">GitHub guide</a> to complete this section but have summarized it to:</p>
+
+<ol>
+  <li>Create a <code class="language-plaintext highlighter-rouge">github.io</code> repository to host the github site <a href="https://socsieng.github.io"><code class="language-plaintext highlighter-rouge">socsieng/socsieng.github.io</code></a>.</li>
+  <li>
+    <p>Add <code class="language-plaintext highlighter-rouge">github-pages</code> plugin to <code class="language-plaintext highlighter-rouge">Gemfile</code>:</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">group</span> <span class="ss">:jekyll_plugins</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s2">"jekyll-feed"</span><span class="p">,</span> <span class="s2">"~&gt; 0.12"</span>
+  <span class="n">gem</span> <span class="s2">"github-pages"</span><span class="p">,</span> <span class="s2">"~&gt; 207"</span>
+<span class="k">end</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Push changes up to your repository:</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add origin git@github.com:socsieng/socsieng.github.io.git
+
+<span class="c"># I'm making main my default branch</span>
+git checkout <span class="nt">-b</span> main
+
+git push origin main
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Configure GitHub pages the repository settings</p>
+
+    <p><img src="/assets/img/github-pages-config.png" alt="GitHub pages configuration" /> <em>Configure GitHub Pages.</em></p>
+  </li>
+</ol>
+
+<h2 id="up-next">Up next</h2>
+
+<p>This was a fairly straight forward exercise, and if everything goes well with my next git command, I’ll have a blog post
+published at <a href="https://socsieng.github.io">socsieng.github.io</a>. And best of all, apart from some initial set up, it won’t have any ongoing operating
+costs.</p>
+
+<p>There are couple things I’d like to follow up with, including:</p>
+
+<ul>
+  <li><a href="/blogging/2020/08/30/jekyll-theming.html">Theming</a>,</li>
+  <li><a href="/blogging/2020/08/30/adding-google-analytics.html">Analytics</a>,</li>
+  <li>Custom domain? (…maybe. That’s going to cost money)</li>
+</ul>
+
+
+  </div><div class="tags">Tags: blogging
+  </div><hr></hr>
+  <h2 class="post-list-heading related-posts">Related posts</h2>
+  <ul class="post-list related-posts"><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/09/07/using-github-actions-over-github-pages.html">
+          Using GitHub Actions Over GitHub Pages
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/11/automated-code-formatting-with-prettier.html">
+          Automated Code Formatting With Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/jekyll-theming.html">
+          Updating the Blog&#39;s Theme
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/customizing-blog-related-posts.html">
+          Customizing The Blog With Related Posts
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/03/automation-challeng-image-optimizations.html">
+          Automation Challenge: Image Optimization
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/adding-google-analytics.html">
+          Adding Google Analytics
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html">
+          Maintaining a Jekyll Blog with Gitpod
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/10/making-prettier-prettier.html">
+          Making Prettier Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/08/30/faster-typing.html">
+          How Breaking My Hand Improved My Typing
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/04/scripting-a-new-blog-post.html">
+          Scripting a New Blog Post
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/17/released-sendkeys-macos-now-stable.html">
+          Released: sendkeys-macos Now Stable 🎉
+        </a>
+      </h3>
+    </li></ul><a class="u-url" href="/blogging/2020/08/29/blogging-for-free-wth-jekyll.html" hidden></a>
+</article>
+
+      </section><hr />
+<div class="footer">
+	<p>&copy; socsieng 2021 | All Rights Reserved. </p>
+	<ul class="page-links">
+		<li><a href="/readme">Readme</a></li>
+		<li><a href="/about">About Me</a></li>
+	</ul>
+</div></div>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-176795949-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Making Prettier Prettier | Soc’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Making Prettier Prettier" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I like having consistently formatted code, but I hate formatting code. I’m also super pedantic about how my code should be formatted." />
+<meta property="og:description" content="I like having consistently formatted code, but I hate formatting code. I’m also super pedantic about how my code should be formatted." />
+<link rel="canonical" href="https://socsieng.github.io/tools/2020/09/10/making-prettier-prettier.html" />
+<meta property="og:url" content="https://socsieng.github.io/tools/2020/09/10/making-prettier-prettier.html" />
+<meta property="og:site_name" content="Soc’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-10T01:44:03+00:00" />
+<script type="application/ld+json">
+{"description":"I like having consistently formatted code, but I hate formatting code. I’m also super pedantic about how my code should be formatted.","url":"https://socsieng.github.io/tools/2020/09/10/making-prettier-prettier.html","@type":"BlogPosting","headline":"Making Prettier Prettier","dateModified":"2020-09-10T01:44:03+00:00","datePublished":"2020-09-10T01:44:03+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://socsieng.github.io/tools/2020/09/10/making-prettier-prettier.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=" />
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css" />
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1><a href="/">Soc's Blog</a></h1>
+          <div>
+            <p>Musings of an old Software Engineer.</p><ul class="social-media-list"><li>
+    <a href="https://github.com/socsieng"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#github"></use></svg>
+      <span class="username">socsieng</span></a
+    >
+  </li><li>
+    <a href="https://www.twitter.com/aussoc"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#twitter"></use></svg>
+      <span class="username">aussoc</span></a
+    >
+  </li></ul>
+</div>
+        </div>
+        <hr>
+
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Making Prettier Prettier</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-09-10T01:44:03+00:00" itemprop="datePublished">
+        Sep 10, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I like having consistently formatted code, but I hate formatting code. I’m also super pedantic about how my code should
+be formatted.</p>
+
+<p><img src="/assets/img/prettier-code.png" alt="Prettier example" /></p>
+
+<p>In this post, I’ll show you how to apply a work-around for <a href="https://prettier.io/">Prettier</a> that for me was always a
+blemish on an otherwise awesome code formatter. But first, some context.</p>
+
+<h2 id="context">Context</h2>
+
+<p>Prettier describes itself as <em>an opinionated code formatter</em> which I’m cool with, as long as these opinions are the same
+as mine.</p>
+
+<p>Where Prettier and I diverge is whether or not operators should appear at the beginning or the end of a line.</p>
+
+<p>Prettier:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// prettier-ignore</span>
+<span class="kd">const</span> <span class="nx">booleanResult</span> <span class="o">=</span>
+  <span class="nx">condition1</span> <span class="o">===</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span>
+  <span class="nx">condition2</span> <span class="o">===</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span>
+  <span class="nx">condition3</span> <span class="o">===</span> <span class="kc">true</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Me (<a href="https://github.com/prettier/prettier/issues/3806">plus a number of people on GitHub</a>):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// prettier-ignore</span>
+<span class="kd">const</span> <span class="nx">booleanResult</span> <span class="o">=</span>
+  <span class="nx">condition1</span> <span class="o">===</span> <span class="kc">true</span>
+  <span class="o">&amp;&amp;</span> <span class="nx">condition2</span> <span class="o">===</span> <span class="kc">true</span>
+  <span class="o">&amp;&amp;</span> <span class="nx">condition3</span> <span class="o">===</span> <span class="kc">true</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Prettier is so useful that I was willing to overlook the cancerous eyesore 🤮 that is the first example if it mean that
+I didn’t have to format the code myself. So I sucked it up and moved on… That was until this weekend when I stumbled
+upon some
+<a href="https://github.com/prettier/prettier/issues/3806#issuecomment-687278788">new activity on a related Github issue</a>.
+<a href="https://github.com/btmills">@btmills</a> had updated his <a href="https://github.com/prettier/prettier/pull/7111">pull request</a>
+and included instructions on how to use it. 🎉</p>
+
+<p>I <a href="https://github.com/google-pay/google-pay-button/commit/95bc7ced6b1b37bde2ac21267ba8e781bdff0501">applied</a> it to one
+of <a href="https://github.com/google-pay/google-pay-button/">repositories</a> that I manage but found that it wasn’t completely
+straight forward so I thought I’d share the additional steps required to get it working.</p>
+
+<h2 id="environment">Environment</h2>
+
+<p>I’m using npm (instead of yarn) with the following npm scripts in my <code class="language-plaintext highlighter-rouge">package.json</code> which is where I think the problem
+lies:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pretty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prettier . --write --loglevel warn"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pretty:check"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prettier . --check"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="installation">Installation</h2>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">--save-dev</span> prettier@npm:@btmills/prettier@^2.1.1
+</code></pre></div></div>
+
+<p>For some reason, <code class="language-plaintext highlighter-rouge">prettier@npm:@btmills/prettier@^2.1.1</code> does not create an executable under
+<code class="language-plaintext highlighter-rouge">node_modules/.bin/prettier</code>, however, <code class="language-plaintext highlighter-rouge">prettier</code> does. So as a work-around, I referenced
+<code class="language-plaintext highlighter-rouge">node_modules/prettier/bin-prettier.js</code> directly instead of <code class="language-plaintext highlighter-rouge">prettier</code> in my <code class="language-plaintext highlighter-rouge">package.json</code>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pretty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node_modules/prettier/bin-prettier.js . --write --loglevel warn"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pretty:check"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node_modules/prettier/bin-prettier.js . --check"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>I’m told that the package name format (<code class="language-plaintext highlighter-rouge">prettier@npm:@btmills/prettier@^2.1.1</code>) is specific to yarn, and works as
+expected with yarn.</p>
+
+<p>As an alternative, I could have used the github package name <code class="language-plaintext highlighter-rouge">npm install --save-dev prettier/prettier#pull/7111/head</code>
+but I found that the installation process was significantly slower than <code class="language-plaintext highlighter-rouge">prettier@npm:@btmills/prettier@^2.1.1</code>. I also
+liked the fact that the yarn syntax references an npm package and is therefore immutable. So I stuck with that.</p>
+
+<h2 id="looking-forward">Looking forward</h2>
+
+<p>Yes, this is a work-around that I’d prefer not to have to make, but at the same time, it doesn’t cause my eyes to tear
+up when I see my operators in the wrong location.</p>
+
+<p>I plan to stick to this until Prettier <code class="language-plaintext highlighter-rouge">3.0</code> is released with the <em>correct</em> opinion applied.</p>
+
+  </div><div class="tags">Tags: tools, prettier, tips
+  </div><hr></hr>
+  <h2 class="post-list-heading related-posts">Related posts</h2>
+  <ul class="post-list related-posts"><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/11/automated-code-formatting-with-prettier.html">
+          Automated Code Formatting With Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/09/07/using-github-actions-over-github-pages.html">
+          Using GitHub Actions Over GitHub Pages
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/03/automation-challeng-image-optimizations.html">
+          Automation Challenge: Image Optimization
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/jekyll-theming.html">
+          Updating the Blog&#39;s Theme
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/08/30/faster-typing.html">
+          How Breaking My Hand Improved My Typing
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/29/blogging-for-free-wth-jekyll.html">
+          Blogging for free with Jekyll
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html">
+          Maintaining a Jekyll Blog with Gitpod
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/customizing-blog-related-posts.html">
+          Customizing The Blog With Related Posts
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2021/01/04/released-sendkeys-2-0.html">
+          Released: sendkeys 2.0
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/17/released-sendkeys-macos-now-stable.html">
+          Released: sendkeys-macos Now Stable 🎉
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/04/scripting-a-new-blog-post.html">
+          Scripting a New Blog Post
+        </a>
+      </h3>
+    </li></ul><a class="u-url" href="/tools/2020/09/10/making-prettier-prettier.html" hidden></a>
+</article>
+
+      </section><hr />
+<div class="footer">
+	<p>&copy; socsieng 2021 | All Rights Reserved. </p>
+	<ul class="page-links">
+		<li><a href="/readme">Readme</a></li>
+		<li><a href="/about">About Me</a></li>
+	</ul>
+</div></div>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-176795949-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>

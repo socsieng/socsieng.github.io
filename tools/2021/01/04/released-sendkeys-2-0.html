@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Released: sendkeys 2.0 | Soc’s Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Released: sendkeys 2.0" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’m happy to announce the release of sendkeys 2.0. 🚀🎉!" />
+<meta property="og:description" content="I’m happy to announce the release of sendkeys 2.0. 🚀🎉!" />
+<link rel="canonical" href="https://socsieng.github.io/tools/2021/01/04/released-sendkeys-2-0.html" />
+<meta property="og:url" content="https://socsieng.github.io/tools/2021/01/04/released-sendkeys-2-0.html" />
+<meta property="og:site_name" content="Soc’s Blog" />
+<meta property="og:image" content="https://github.com/socsieng/sendkeys/raw/main/docs/images/accessibility.gif" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-04T21:47:58+00:00" />
+<script type="application/ld+json">
+{"description":"I’m happy to announce the release of sendkeys 2.0. 🚀🎉!","url":"https://socsieng.github.io/tools/2021/01/04/released-sendkeys-2-0.html","@type":"BlogPosting","headline":"Released: sendkeys 2.0","dateModified":"2021-01-04T21:47:58+00:00","datePublished":"2021-01-04T21:47:58+00:00","image":"https://github.com/socsieng/sendkeys/raw/main/docs/images/accessibility.gif","mainEntityOfPage":{"@type":"WebPage","@id":"https://socsieng.github.io/tools/2021/01/04/released-sendkeys-2-0.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=" />
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/assets/css/ie.css" />
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1><a href="/">Soc's Blog</a></h1>
+          <div>
+            <p>Musings of an old Software Engineer.</p><ul class="social-media-list"><li>
+    <a href="https://github.com/socsieng"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#github"></use></svg>
+      <span class="username">socsieng</span></a
+    >
+  </li><li>
+    <a href="https://www.twitter.com/aussoc"
+      ><svg class="svg-icon"><use xlink:href="/assets/social-icons.svg#twitter"></use></svg>
+      <span class="username">aussoc</span></a
+    >
+  </li></ul>
+</div>
+        </div>
+        <hr>
+
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Released: sendkeys 2.0</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2021-01-04T21:47:58+00:00" itemprop="datePublished">
+        Jan 4, 2021
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I’m happy to announce the release of <a href="https://github.com/socsieng/sendkeys"><code class="language-plaintext highlighter-rouge">sendkeys 2.0</code></a>. 🚀🎉!</p>
+
+<p>This is a major release and includes the following:</p>
+
+<ul>
+  <li>Rewrite from JavaScript to Swift.</li>
+  <li>Installable via <a href="https://brew.sh/">homebrew</a>.</li>
+  <li><strong>Support for automating mouse events!!!</strong></li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>socsieng/tap/sendkeys
+</code></pre></div></div>
+
+<h2 id="example-usage">Example usage</h2>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sendkeys <span class="nt">--application-name</span> <span class="s2">"Notes"</span> <span class="nt">--characters</span> <span class="s2">"Hello&lt;p:1&gt; world&lt;c:left:option,shift&gt;&lt;c:i:command&gt;"</span>
+</code></pre></div></div>
+
+<p><img src="https://github.com/socsieng/sendkeys/raw/main/docs/images/example1.gif" alt="hello world example" /></p>
+
+<p><em>Activates the Notes application and types <code class="language-plaintext highlighter-rouge">Hello</code> (followed by a 1 second pause) and <code class="language-plaintext highlighter-rouge">world</code>, and then selects the word
+<code class="language-plaintext highlighter-rouge">world</code> and changes the font to italics with <code class="language-plaintext highlighter-rouge">command</code> + <code class="language-plaintext highlighter-rouge">i</code>.</em></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sendkeys <span class="nt">-c</span> <span class="s2">"&lt;m:100,300,300,300:0.5&gt;&lt;p:0.5&gt;&lt;m:100,300:0.5&gt;"</span>
+</code></pre></div></div>
+
+<p><img src="https://github.com/socsieng/sendkeys/raw/main/docs/images/mouse.gif" alt="mouse move example" /></p>
+
+<p><em>Moves the mouse cursor from (100, 300) to (300, 300), pausing for 0.5 seconds and moving back to (100, 300).</em></p>
+
+<h2 id="why-rewrite">Why rewrite?</h2>
+
+<p>You might be wondering about why anyone would bother rewriting anything from JavaScript to Swift. In my case, it was to
+provide mouse automation capabilties and overall simplification. With the rewrite, I was able to unify how keyboard and
+mouse events are dispatched to macOS using Quartz instead of AppleScript (<code class="language-plaintext highlighter-rouge">osascript</code> for keyboard) and Quartz for
+mouse.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p><code class="language-plaintext highlighter-rouge">sendkeys</code> requires macOS 10.11 or later.</p>
+
+<p>When running from the terminal, ensure that the terminal has permission to use accessibility features. This can be done
+by navigating to System Preferences &gt; Security &amp; Privacy &gt; Privacy &gt; Accessibility and adding your terminal application
+there.</p>
+
+<p><img src="https://github.com/socsieng/sendkeys/raw/main/docs/images/accessibility.gif" alt="accessibility settings" /></p>
+
+<h2 id="whats-next">What’s next?</h2>
+
+<p>There are some additional features and learnings that I got out of this release that I plan to cover in subsequent
+posts. Keep an eye out for:</p>
+
+<ul>
+  <li>Recording and replaying mouse events, and</li>
+  <li>Automating releases with GitHub Actions and <code class="language-plaintext highlighter-rouge">brew</code>.</li>
+</ul>
+
+  </div><div class="tags">Tags: tools, sendkeys, brew, mouse
+  </div><hr></hr>
+  <h2 class="post-list-heading related-posts">Related posts</h2>
+  <ul class="post-list related-posts"><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/08/30/faster-typing.html">
+          How Breaking My Hand Improved My Typing
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/09/07/using-github-actions-over-github-pages.html">
+          Using GitHub Actions Over GitHub Pages
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/05/maintaining-a-jekyll-blog-with-gitpod.html">
+          Maintaining a Jekyll Blog with Gitpod
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/03/automation-challeng-image-optimizations.html">
+          Automation Challenge: Image Optimization
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/11/automated-code-formatting-with-prettier.html">
+          Automated Code Formatting With Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/10/making-prettier-prettier.html">
+          Making Prettier Prettier
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/customizing-blog-related-posts.html">
+          Customizing The Blog With Related Posts
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/29/blogging-for-free-wth-jekyll.html">
+          Blogging for free with Jekyll
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/jekyll-theming.html">
+          Updating the Blog&#39;s Theme
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/blogging/2020/08/30/adding-google-analytics.html">
+          Adding Google Analytics
+        </a>
+      </h3>
+    </li><li>
+      <h3>
+        <a class="post-link" href="/tools/2020/09/17/released-sendkeys-macos-now-stable.html">
+          Released: sendkeys-macos Now Stable 🎉
+        </a>
+      </h3>
+    </li></ul><a class="u-url" href="/tools/2021/01/04/released-sendkeys-2-0.html" hidden></a>
+</article>
+
+      </section><hr />
+<div class="footer">
+	<p>&copy; socsieng 2021 | All Rights Reserved. </p>
+	<ul class="page-links">
+		<li><a href="/readme">Readme</a></li>
+		<li><a href="/about">About Me</a></li>
+	</ul>
+</div></div>
+
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-176795949-1', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+  </body>
+</html>
